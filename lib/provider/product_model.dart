@@ -29,10 +29,15 @@ class ProdukModel extends ChangeNotifier {
   List<Produk> rougheProductLocal = [];
   List<Produk> vincencioProductsLocal = [];
 
+  List<String> produkTitleList = [];
+  List<List<Produk>> productList =
+      []; //list 2 dimensi , based model list show in home
   late var database;
 
   ProdukModel(this.context) {
+    initTitleProduk();
     init();
+    // initListProduk();
   }
 
   Future<void> init() async {
@@ -63,6 +68,7 @@ class ProdukModel extends ChangeNotifier {
     //BRAND VINCENCIO
     generateVincencioBrand();
 
+    //store dummy list to local db
     try {
       database = await DatabaseHelper().database;
 
@@ -121,11 +127,27 @@ class ProdukModel extends ChangeNotifier {
       for (final i in vincencioProductsLocal) {
         log('vincencio: $i}');
       }
+      initListProduk();
     } catch (err) {
       log("brand catch $err");
     }
 
     _resultState = ResultState.Success;
+    notifyListeners();
+  }
+
+  void initTitleProduk() {
+    produkTitleList = ["Aerostreet", 'Ardiles Culture', 'Relica', 'Roughe'];
+    notifyListeners();
+  }
+
+  void initListProduk() {
+    productList = [
+      aerostreetProductsLocal,
+      ardilesProductsLocal,
+      relicaProductsLocal,
+      rougheProductLocal
+    ];
     notifyListeners();
   }
 

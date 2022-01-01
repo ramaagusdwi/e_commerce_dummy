@@ -44,117 +44,133 @@ class ProductView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                normalText('Aerostreet'),
-                const SizedBox(
-                  height: 4,
-                ),
+
                 state.state == ResultState.Loading
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
-                    : Container(
-                        // height: 276,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                itemCardShoes(
-                                    state.aerostreetProductsLocal[index])),
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.productList.length,
+                        itemBuilder: (context, indexColumn) {
+                          return Column(
+                            children: [
+                              normalText(state.produkTitleList[indexColumn]),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              Container(
+                                  // height: 276,
+                                  height: 230,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:
+                                          state.productList[indexColumn].length,
+                                      itemBuilder:
+                                          (BuildContext context, int indexRow) {
+                                        return itemCardShoes(
+                                            state.productList[indexColumn]
+                                                [indexRow]);
+                                      })),
+                            ],
+                          );
+                        },
                       ),
-                const SizedBox(
-                  height: 16,
-                ),
-                normalText('Ardiles Culture'),
-                const SizedBox(
-                  height: 4,
-                ),
-                state.state == ResultState.Loading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        color: ColorSource.primaryColor,
-                      ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                itemCardShoes(
-                                    state.ardilesProductsLocal[index])),
-                      ),
-                const SizedBox(
-                  height: 16,
-                ),
-                normalText('Relica'),
-                const SizedBox(
-                  height: 4,
-                ),
-                state.state == ResultState.Loading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        color: ColorSource.primaryColor,
-                      ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                itemCardShoes(
-                                    state.relicaProductsLocal[index])),
-                      ),
-                const SizedBox(
-                  height: 16,
-                ),
-                normalText('Roughe'),
-                const SizedBox(
-                  height: 4,
-                ),
-                state.state == ResultState.Loading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        color: ColorSource.primaryColor,
-                      ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                itemCardShoes(state.rougheProductLocal[index])),
-                      ),
-                const SizedBox(
-                  height: 16,
-                ),
-                normalText('Vincencio'),
-                const SizedBox(
-                  height: 4,
-                ),
-                state.state == ResultState.Loading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                        color: ColorSource.primaryColor,
-                      ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                itemCardShoes(
-                                    state.vincencioProductsLocal[index])),
-                      ),
+
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // normalText('Ardiles Culture'),
+                // const SizedBox(
+                //   height: 4,
+                // ),
+                // state.state == ResultState.Loading
+                //     ? Center(
+                //         child: CircularProgressIndicator(
+                //         color: ColorSource.primaryColor,
+                //       ))
+                //     : Container(
+                //         // height: 280,
+                //         height: 230,
+                //         child: ListView.builder(
+                //             shrinkWrap: true,
+                //             scrollDirection: Axis.horizontal,
+                //             itemCount: 4,
+                //             itemBuilder: (BuildContext context, int index) =>
+                //                 itemCardShoes(
+                //                     state.ardilesProductsLocal[index])),
+                //       ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // normalText('Relica'),
+                // const SizedBox(
+                //   height: 4,
+                // ),
+                // state.state == ResultState.Loading
+                //     ? Center(
+                //         child: CircularProgressIndicator(
+                //         color: ColorSource.primaryColor,
+                //       ))
+                //     : Container(
+                //         // height: 280,
+                //         height: 230,
+                //         child: ListView.builder(
+                //             shrinkWrap: true,
+                //             scrollDirection: Axis.horizontal,
+                //             itemCount: 4,
+                //             itemBuilder: (BuildContext context, int index) =>
+                //                 itemCardShoes(
+                //                     state.relicaProductsLocal[index])),
+                //       ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // normalText('Roughe'),
+                // const SizedBox(
+                //   height: 4,
+                // ),
+                // state.state == ResultState.Loading
+                //     ? Center(
+                //         child: CircularProgressIndicator(
+                //         color: ColorSource.primaryColor,
+                //       ))
+                //     : Container(
+                //         // height: 280,
+                //         height: 230,
+                //         child: ListView.builder(
+                //             shrinkWrap: true,
+                //             scrollDirection: Axis.horizontal,
+                //             itemCount: 4,
+                //             itemBuilder: (BuildContext context, int index) =>
+                //                 itemCardShoes(state.rougheProductLocal[index])),
+                //       ),
+                // const SizedBox(
+                //   height: 16,
+                // ),
+                // normalText('Vincencio'),
+                // const SizedBox(
+                //   height: 4,
+                // ),
+                // state.state == ResultState.Loading
+                //     ? Center(
+                //         child: CircularProgressIndicator(
+                //         color: ColorSource.primaryColor,
+                //       ))
+                //     : Container(
+                //         // height: 280,
+                //         height: 230,
+                //         child: ListView.builder(
+                //             shrinkWrap: true,
+                //             scrollDirection: Axis.horizontal,
+                //             itemCount: 4,
+                //             itemBuilder: (BuildContext context, int index) =>
+                //                 itemCardShoes(
+                //                     state.vincencioProductsLocal[index])),
+                //       ),
               ],
             ),
           ),
