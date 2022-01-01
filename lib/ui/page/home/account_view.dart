@@ -122,13 +122,13 @@ class AccountView extends StatelessWidget {
       paddingHorizontal: 30,
       callback: () async {
         await VPref.clearLoginPreference();
-        context.read<HomeModel>().selectedIndex(0); //modify the state
-        // get_package.Get.offAll(LoginPage());
-        // Navigator.of(context).popUntil(ModalRoute.withName(LoginPage.route));
+        context.read<HomeModel>().selectedIndex(
+            0); //modify the state home page -> set index tab to 0  (default is left)
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
             ModalRoute.withName('/'));
+        // get_package.Get.offAll(LoginPage());
       },
     );
   }
