@@ -54,13 +54,14 @@ class ProductView extends StatelessWidget {
                         color: ColorSource.primaryColor,
                       ))
                     : Container(
-                        height: 276,
+                        // height: 276,
+                        height: 230,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: 4,
                             itemBuilder: (BuildContext context, int index) =>
-                                _buildItemCard(
+                                itemCardShoes(
                                     state.aerostreetProductsLocal[index])),
                       ),
                 const SizedBox(
@@ -76,13 +77,14 @@ class ProductView extends StatelessWidget {
                         color: ColorSource.primaryColor,
                       ))
                     : Container(
-                        height: 280,
+                        // height: 280,
+                        height: 230,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: 4,
                             itemBuilder: (BuildContext context, int index) =>
-                                _buildItemCard(
+                                itemCardShoes(
                                     state.ardilesProductsLocal[index])),
                       ),
                 const SizedBox(
@@ -98,13 +100,14 @@ class ProductView extends StatelessWidget {
                         color: ColorSource.primaryColor,
                       ))
                     : Container(
-                        height: 280,
+                        // height: 280,
+                        height: 230,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: 4,
                             itemBuilder: (BuildContext context, int index) =>
-                                _buildItemCard(
+                                itemCardShoes(
                                     state.relicaProductsLocal[index])),
                       ),
                 const SizedBox(
@@ -120,14 +123,14 @@ class ProductView extends StatelessWidget {
                         color: ColorSource.primaryColor,
                       ))
                     : Container(
-                        height: 280,
+                        // height: 280,
+                        height: 230,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: 4,
                             itemBuilder: (BuildContext context, int index) =>
-                                _buildItemCard(
-                                    state.rougheProductLocal[index])),
+                                itemCardShoes(state.rougheProductLocal[index])),
                       ),
                 const SizedBox(
                   height: 16,
@@ -142,13 +145,14 @@ class ProductView extends StatelessWidget {
                         color: ColorSource.primaryColor,
                       ))
                     : Container(
-                        height: 280,
+                        // height: 280,
+                        height: 230,
                         child: ListView.builder(
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: 4,
                             itemBuilder: (BuildContext context, int index) =>
-                                _buildItemCard(
+                                itemCardShoes(
                                     state.vincencioProductsLocal[index])),
                       ),
               ],
@@ -249,225 +253,128 @@ class ProductView extends StatelessWidget {
     );
   }
 
-  Widget _buildItemCard(Produk data) {
+  Widget itemCardShoes(Produk data) {
     return Card(
       elevation: 2,
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              width: 160,
-              decoration: BoxDecoration(
-                color: Color(0xff7c94b6),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/${data.pathImage}'),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(14.0),
-                  topRight: Radius.circular(14.0),
-                  bottomLeft: Radius.zero,
-                  bottomRight: Radius.zero,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              width: 164,
-              padding: const EdgeInsets.all(6.0),
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.zero,
-                  topRight: Radius.zero,
-                  bottomLeft: Radius.circular(14.0),
-                  bottomRight: Radius.circular(14.0),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      child: Container(
+        width: MediaQuery.of(state.context).size.width *
+            0.35, //width based on 35 percent from size device / phone
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 2,
+              child: Stack(
+                // fit: StackFit.expand,
                 children: [
-                  // Flexible(
-                  //   child:
-                  Text(
-                    "${data.nama}",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 11,
-                        color: ColorSource.black2),
+                  Container(
+                    width: 160,
+                    height: 140,
+                    margin: const EdgeInsets.only(bottom: 10),
+                    decoration: BoxDecoration(
+                      color: Color(0xff7c94b6),
+                      image: DecorationImage(
+                        image: AssetImage('assets/image/${data.pathImage}'),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(14.0),
+                        topRight: Radius.circular(14.0),
+                        bottomLeft: Radius.zero,
+                        bottomRight: Radius.zero,
+                      ),
+                    ),
                   ),
-                  // ),
-                  const Text(
-                    "Dummy Brand",
-                    overflow: TextOverflow.visible,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 11,
-                        color: ColorSource.textGrey2),
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  // Flexible(
-                  //   child:
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      buildCircle(
-                          child: const SizedBox(),
-                          colorArgs: HexColor(data.warnaHex),
-                          size: 14),
-                      vText(data.harga.toString(),
-                          money: true,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 11,
-                          color: ColorSource.yellow)
-                    ],
-                  ),
-                  // ),
-                  const SizedBox(
-                    height: 3,
-                  ),
-                  InkWell(
-                      onTap: () {
-                        state.setFavorite(data);
-                      },
-                      child: Icon(Icons.favorite,
-                          size: 10,
-                          color: data.favorite != null
-                              ? data.favorite == 1 //cek
-                                  ? Colors.pink
-                                  : Colors.grey
-                              : Colors.grey))
+                  Positioned(
+                      bottom: 30,
+                      right: 20,
+                      child: iconFavorite(data, size: 30))
                 ],
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: 164,
+                padding: const EdgeInsets.all(6.0),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.zero,
+                    topRight: Radius.zero,
+                    bottomLeft: Radius.circular(14.0),
+                    bottomRight: Radius.circular(14.0),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${data.nama}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 11,
+                          color: ColorSource.black2),
+                    ),
+                    const Text(
+                      "Dummy Brand",
+                      overflow: TextOverflow.visible,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 11,
+                          color: ColorSource.textGrey2),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        buildCircle(
+                            child: const SizedBox(),
+                            colorArgs: HexColor(data.warnaHex),
+                            size: 14),
+                        vText(data.harga.toString(),
+                            money: true,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11,
+                            color: ColorSource.yellow)
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    // iconFavorite(data)
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-// Widget _buildItemCard(String? namaMenu, String? namaBrand, int? harga) {
-//   return Card(
-//     elevation: 2,
-//     color: Colors.white,
-//     shape: RoundedRectangleBorder(
-//       borderRadius: BorderRadius.circular(14),
-//     ),
-//     child: Column(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Expanded(
-//           flex: 2,
-//           child: Container(
-//             width: 160,
-//             decoration: const BoxDecoration(
-//               color: Color(0xff7c94b6),
-//               image: DecorationImage(
-//                 image: AssetImage(
-//                     'assets/image/vincencio/SUMITTO-BLACK.BLACK.1.jpeg'),
-//                 fit: BoxFit.cover,
-//               ),
-//               borderRadius: BorderRadius.only(
-//                 topLeft: Radius.circular(14.0),
-//                 topRight: Radius.circular(14.0),
-//                 bottomLeft: Radius.zero,
-//                 bottomRight: Radius.zero,
-//               ),
-//             ),
-//           ),
-//         ),
-//         Expanded(
-//           flex: 1,
-//           child: Container(
-//             width: 160,
-//             padding: const EdgeInsets.all(6.0),
-//             decoration: const BoxDecoration(
-//               shape: BoxShape.rectangle,
-//               color: Colors.white,
-//               borderRadius: BorderRadius.only(
-//                 topLeft: Radius.zero,
-//                 topRight: Radius.zero,
-//                 bottomLeft: Radius.circular(14.0),
-//                 bottomRight: Radius.circular(14.0),
-//               ),
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 // Flexible(
-//                 //   child:
-//                 Text(
-//                   "$namaMenu",
-//                   maxLines: 1,
-//                   overflow: TextOverflow.ellipsis,
-//                   style: const TextStyle(
-//                       fontWeight: FontWeight.w400,
-//                       fontSize: 11,
-//                       color: ColorSource.black2),
-//                 ),
-//                 // ),
-//                 Text(
-//                   "$namaBrand",
-//                   overflow: TextOverflow.visible,
-//                   style: const TextStyle(
-//                       fontWeight: FontWeight.w400,
-//                       fontSize: 11,
-//                       color: ColorSource.textGrey2),
-//                 ),
-//                 const SizedBox(
-//                   height: 6,
-//                 ),
-//                 // Flexible(
-//                 //   child:
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   children: [
-//                     buildCircle(
-//                         child: const SizedBox(),
-//                         colorArgs: ColorSource.dark,
-//                         size: 14),
-//                     vText(harga.toString(),
-//                         money: true,
-//                         fontWeight: FontWeight.w600,
-//                         fontSize: 11,
-//                         color: ColorSource.yellow)
-//                   ],
-//                 ),
-//                 // ),
-//                 const SizedBox(
-//                   height: 6,
-//                 ),
-//                 const Align(
-//                   alignment: Alignment.bottomRight,
-//                   child: Icon(
-//                     Icons.favorite,
-//                     size: 16,
-//                     color: ColorSource.red,
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }
+  InkWell iconFavorite(Produk data, {double size = 30}) {
+    return InkWell(
+        onTap: () {
+          state.setFavorite(data);
+        },
+        child: Icon(Icons.favorite,
+            size: size,
+            color: data.favorite != null
+                ? data.favorite == 1 //cek
+                    ? Colors.pink
+                    : Colors.grey
+                : Colors.grey));
+  }
 }
