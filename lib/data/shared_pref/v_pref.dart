@@ -6,6 +6,7 @@ import 'package:test_mobile_apps_dev/models/user.dart';
 
 class VPref {
   static String PREFERENCE_USER = "user";
+  static String PREFERENCE_ID_USER = "id_user";
 
   static setLogin(String flag) async {
     var ref = await SharedPreferences.getInstance();
@@ -17,7 +18,7 @@ class VPref {
     return ref.getString("isLogin");
   }
 
-  static saveUser(Map<dynamic,dynamic>  userData) async {
+  static saveUser(Map<dynamic, dynamic> userData) async {
     var ref = await SharedPreferences.getInstance();
     ref.setString(PREFERENCE_USER, jsonEncode(userData));
   }
@@ -25,6 +26,16 @@ class VPref {
   static Future<User> getDataUser() async {
     var ref = await SharedPreferences.getInstance();
     return User.fromMap(jsonDecode(ref.getString(PREFERENCE_USER)!));
+  }
+
+  static saveIdUser(int id) async {
+    var ref = await SharedPreferences.getInstance();
+    ref.setInt(PREFERENCE_ID_USER, id);
+  }
+
+  static Future<int?> getIdUser() async {
+    var ref = await SharedPreferences.getInstance();
+    return ref.getInt(PREFERENCE_ID_USER);
   }
 
   static Future<bool> clearLoginPreference() async {

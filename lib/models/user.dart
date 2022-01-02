@@ -1,4 +1,5 @@
 class User {
+  int idUser;
   late String nama;
   late String password;
   late String email;
@@ -8,6 +9,7 @@ class User {
 //<editor-fold desc="Data Methods">
 
   User({
+    this.idUser = 0,
     required String nama,
     required String password,
     required String email,
@@ -46,8 +48,11 @@ class User {
     };
   }
 
+  //masukan data tipe map ke user
+  //json biasa bertipe map
   factory User.fromMap(Map<dynamic, dynamic> map) {
     return User(
+      idUser: map['id_user'] as int,
       nama: map['nama_user'] as String,
       password: map['password'] as String,
       email: map['email'] as String,

@@ -41,8 +41,10 @@ class LoginModel extends ChangeNotifier {
       User? user = await loginController.getLogin(username, password);
       if (user != null) {
         print("cek user ditemukan");
+        print("cek iduser ${user.idUser}");
         Map<String, dynamic> userMap = user.toMap();
         VPref.saveUser(userMap);
+        VPref.saveIdUser(user.idUser);
         _resultState = ResultState.Success;
         notifyListeners();
         return _message = "Cannot find the account!";
