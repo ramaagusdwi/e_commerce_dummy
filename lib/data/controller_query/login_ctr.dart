@@ -9,12 +9,12 @@ class LoginCtr {
 
   LoginCtr({required this.dbClient});
 
-  Future<User?> getLogin(String user, String password) async {
+  Future<Map<dynamic, dynamic>?> getLogin(String user, String password) async {
     List<Map> result = await dbClient.rawQuery(
         'SELECT * FROM user WHERE nama_user=? and password=?',
         ['$user', '$password']);
 
-    log("cek UserFound $result");
+    // log("cek UserFound $result");
     //print each user
     result.forEach((row) => print(row));
 
@@ -25,7 +25,8 @@ class LoginCtr {
       log("cekuser ${result.first}");
 
       // VPref.saveUser(result.first);
-      return new User.fromMap(result.first);
+      // return new User.fromMap(result.first);
+      return result.first;
     }
     print("user tidak ada");
     return null;

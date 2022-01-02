@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
+import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
 import 'package:test_mobile_apps_dev/provider/product_model.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_box_container.dart';
@@ -367,7 +368,8 @@ class ProductView extends StatelessWidget {
   InkWell iconFavorite(Produk data, {double size = 30}) {
     return InkWell(
         onTap: () {
-          state.setFavorite(data);
+          // state.setFavorite(data);
+          state.context.read<FavoriteModel>().setFavorite(data);
         },
         child: Icon(Icons.favorite,
             size: size,

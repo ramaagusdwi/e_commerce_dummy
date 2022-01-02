@@ -38,22 +38,29 @@ class LoginModel extends ChangeNotifier {
       _resultState = ResultState.Loading;
       notifyListeners();
       var loginController = LoginCtr(dbClient: database);
-      User? user = await loginController.getLogin(username, password);
+      Map<dynamic, dynamic>? user =
+          await loginController.getLogin(username, password);
       if (user != null) {
         print("cek user ditemukan");
-        print("cek iduser ${user.idUser}");
-        Map<String, dynamic> userMap = user.toMap();
-        VPref.saveUser(userMap);
-        VPref.saveIdUser(user.idUser);
+        // var idUser = user['id_user']!;
+        print("cek iduser ${user['id_user']!}");
+
+        var userObject = User.fromMap(user);
+        Map<String, dynamic> userMap = userObject.toMap();
+        log("cekUserToMap $userMap");
+
+        VPref.saveUser(userMap); //save info user to shared preferences
+        // VPref.saveIdUser(idUser); //save id user to shared preferences
+
         _resultState = ResultState.Success;
         notifyListeners();
-        return _message = "Cannot find the account!";
+        return _message = "Akun ditemukan!";
         //show dialog welcome alert
       } else {
         print("cek user tidak ditemukan");
         _resultState = ResultState.Failed;
         notifyListeners();
-        return _message = "Cannot find the account!";
+        return _message = "Tidak menemukan akun!";
       }
     } catch (err) {
       log("cek catch $err");
