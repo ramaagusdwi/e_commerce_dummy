@@ -20,12 +20,17 @@ class ProdukCtr {
   String kolomIdBrand = 'id_brand';
   String tabelBrand = 'brand';
 
+  String kolomIdUser = 'id_user';
+  String tabelUser = 'user';
+
   Future<void> addTabelProduk() async {
-    await dbClient.execute(
-        'CREATE TABLE IF NOT EXISTS $tabelProduk ($kolomIdProduk INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$kolomNamaProduk TEXT, $kolomHarga INTEGER, $kolomIdBrand INTEGER, $kolomPathTerakhir TEXT,'
-        '$kolomWarna TEXT, $kolomFavorite INTEGER,'
-        'FOREIGN KEY ($kolomIdBrand) REFERENCES $tabelBrand($kolomIdBrand) ON DELETE CASCADE)');
+    await dbClient.execute('''
+        CREATE TABLE IF NOT EXISTS $tabelProduk ($kolomIdProduk INTEGER PRIMARY KEY AUTOINCREMENT,
+        $kolomNamaProduk TEXT, $kolomHarga INTEGER, $kolomIdBrand INTEGER, $kolomPathTerakhir TEXT,
+        $kolomWarna TEXT, $kolomFavorite INTEGER,
+        FOREIGN KEY ($kolomIdBrand) REFERENCES $tabelBrand($kolomIdBrand) ON DELETE CASCADE
+        )
+       ''');
   }
 
   Future insertBanyakProduk(List<Produk> produkList) async {
@@ -91,17 +96,30 @@ class ProdukCtr {
     await db.rawQuery("DELETE FROM $tableName");
   }
 
-  Future updateFavoriteProduct(Produk produk) async {
-    print("cek idBrandProduk ${produk.idBrand}");
-    Map<String, dynamic> row = {
-      kolomFavorite: 1,
-    };
-    int count = await dbClient.update(tabelProduk, row,
-        where: '$kolomIdProduk = ?', whereArgs: [produk.idProduk!]);
-    print('updated: $count');
+// Future updateFavoriteProduct(Produk produk) async {
+//   print("cek idBrandProduk ${produk.idBrand}");
+//   Map<String, dynamic> row = {
+//     kolomFavorite: 1,
+//   };
+//   int count = await dbClient.update(tabelProduk, row,
+//       where: '$kolomIdProduk = ?', whereArgs: [produk.idProduk!]);
+//   print('updated: $count');
+//
+//   // show the results: print all rows in the db
+//   print(await dbClient.query(tabelProduk));
+//   return count;
+// }
 
-    // show the results: print all rows in the db
-    print(await dbClient.query(tabelProduk));
-    return count;
-  }
+// '''
+//         create table IF NOT EXISTS $tabelProduk (
+//           $kolomIdProduk integer primary key autoincrement,
+//           $kolomNamaProduk text not null,
+//           $kolomHarga integer not null,
+//           $kolomHarga integer not null,
+//           $kolomPathTerakhir text not null,
+//           $kolomWarna text not null,
+//           $kolomFavorite integer not null,
+//           FOREIGN KEY ($kolomIdBrand) REFERENCES $tabelBrand($kolomIdBrand) ON DELETE CASCADE,
+//           )
+//         '''
 }
