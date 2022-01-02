@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
+import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
 import 'package:test_mobile_apps_dev/provider/home_model.dart';
 import 'package:test_mobile_apps_dev/provider/login_model.dart';
+import 'package:test_mobile_apps_dev/provider/product_model.dart';
 import 'package:test_mobile_apps_dev/provider/register_model.dart';
 import 'package:test_mobile_apps_dev/router/routing.dart';
 import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
@@ -24,6 +26,12 @@ class MyApp extends StatelessWidget {
         // ),
         ChangeNotifierProvider(
           create: (_) => HomeModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FavoriteModel(context),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProdukModel(context),
         )
       ],
       child: MaterialApp(

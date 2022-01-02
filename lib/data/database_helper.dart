@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/favorite_ctr.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
 import 'package:test_mobile_apps_dev/models/brand.dart';
 
@@ -54,12 +56,18 @@ class DatabaseHelper {
   }
 
   Future _onCreate(Database db, int version) async {
+    log("onCreateDB");
     addUserTable(db);
     addTabelBrand(db);
+
     var produk = ProdukCtr(dbClient: db);
     produk.addTabelProduk();
+
     var keranjangBelanja = KeranjangBelanjaCtr(dbClient: db);
     keranjangBelanja.addTabelKeranjangBelanja();
+
+    var favorite = FavoriteCtr(dbClient: db);
+    favorite.addTabelFavorite();
   }
 
   Future<void> addUserTable(Database db) async {
@@ -73,6 +81,4 @@ class DatabaseHelper {
         'CREATE TABLE IF NOT EXISTS $tabelBrand ($kolomIdBrand INTEGER PRIMARY KEY AUTOINCREMENT,'
         '$kolomNamaBrand TEXT)');
   }
-
-
 }

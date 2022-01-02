@@ -4,6 +4,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
 
+import '../database_helper.dart';
+
 class ProdukCtr {
   final Database dbClient;
 
@@ -50,9 +52,9 @@ class ProdukCtr {
   }
 
   Future getProduk() async {
-    log("select data Produk");
+    // log("select data Produk");
     List<Map> labels = await dbClient.rawQuery('SELECT * FROM $tabelProduk');
-    print("cek data length ${labels.length} from $tabelProduk");
+    // print("cek data length ${labels.length} from $tabelProduk");
     // Convert the List<Map<String, dynamic> into a List<Type>.
     return labels.isNotEmpty
         ? List<Produk>.generate(
@@ -96,30 +98,35 @@ class ProdukCtr {
     await db.rawQuery("DELETE FROM $tableName");
   }
 
-// Future updateFavoriteProduct(Produk produk) async {
-//   print("cek idBrandProduk ${produk.idBrand}");
-//   Map<String, dynamic> row = {
-//     kolomFavorite: 1,
-//   };
-//   int count = await dbClient.update(tabelProduk, row,
-//       where: '$kolomIdProduk = ?', whereArgs: [produk.idProduk!]);
-//   print('updated: $count');
-//
-//   // show the results: print all rows in the db
-//   print(await dbClient.query(tabelProduk));
-//   return count;
-// }
+  Future<List<Produk>> getProductFavoriteByUser(int idUser) async {
+    var dbClient = await DatabaseHelper().database;
+    List<Map> labels = await dbClient.rawQuery('''
+      SELECT
+          produk.nama_produk AS nama_produk,
+          produk.harga AS harga_produk, 
+          produk.warna AS warna_produk, 
+          produk.id_brand AS brand_produk, 
+          produk.path_terakhir AS nama_asset_produk
+      FROM produk
+      INNER JOIN favorite
+      ON produk.id_produk = favorite.id_produk
+      WHERE favorite.id_user=$idUser;  
+      ''');
+    print("produkFavorite size!: ${labels.length}");
+    labels.forEach((row) => print("favoritedProduct! " + row.toString()));
 
-// '''
-//         create table IF NOT EXISTS $tabelProduk (
-//           $kolomIdProduk integer primary key autoincrement,
-//           $kolomNamaProduk text not null,
-//           $kolomHarga integer not null,
-//           $kolomHarga integer not null,
-//           $kolomPathTerakhir text not null,
-//           $kolomWarna text not null,
-//           $kolomFavorite integer not null,
-//           FOREIGN KEY ($kolomIdBrand) REFERENCES $tabelBrand($kolomIdBrand) ON DELETE CASCADE,
-//           )
-//         '''
+    // Convert the List<Map<String, dynamic> into a List<Type>.
+    return labels.isNotEmpty
+        ? List<Produk>.generate(
+            labels.length,
+            (i) => Produk(
+              nama: labels[i]['nama_produk'],
+              harga: labels[i]['harga_produk'],
+              idBrand: labels[i]['brand_produk'],
+              pathImage: labels[i]['nama_asset_produk'],
+              warnaHex: labels[i]['warna_produk'],
+            ),
+          )
+        : <Produk>[];
+  }
 }

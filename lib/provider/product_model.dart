@@ -2,9 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/brand_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/favorite_ctr.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
+import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/brand.dart';
+import 'package:test_mobile_apps_dev/models/favorite.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 
@@ -36,6 +39,7 @@ class ProdukModel extends ChangeNotifier {
   }
 
   Future<void> init() async {
+    log("cek INIT PRODUK MODEL");
     _resultState = ResultState.Loading;
     notifyListeners();
 
@@ -75,6 +79,7 @@ class ProdukModel extends ChangeNotifier {
 
       var produkController = ProdukCtr(dbClient: database);
 
+      //insert produk to db
       for (int i = 0; i <= listProduk.length - 1; i++) {
         produkController.insertBanyakProduk(listProduk);
 
@@ -277,25 +282,5 @@ class ProdukModel extends ChangeNotifier {
         harga: 499000,
         pathImage: 'vincencio/SUMITTO-ORANGE.ORANGE.1.jpeg',
         warnaHex: ColorSource.orangeHex));
-  }
-
-  Future<void> setFavorite(Produk produk) async {
-    _resultState = ResultState.Loading;
-    notifyListeners();
-
-    try {
-      var con = ProdukCtr(dbClient: database);
-      print("cek produk name ${produk.nama}");
-      int updated = await con.updateFavoriteProduct(produk);
-      if (updated > 0) {
-        List<Produk> listProduk = await con.getProduk();
-        // emit(SuccessState(listPeople)); //show list from database
-      } else {
-        // emit(FailedState('Failed favorites'));
-      }
-    } catch (err) {
-      print("catch $err");
-      // emit(FailedState('An unknown error occured'));
-    }
   }
 }
