@@ -31,8 +31,7 @@ class FavoriteView extends StatelessWidget {
           ))
         : state.favoriteProductList.isNotEmpty
             ? Container(
-                // height: 276,
-                height: 235,
+                margin: EdgeInsets.only(top: 16),
                 child: GridView.count(
                     primary: false,
                     padding: const EdgeInsets.all(20),
