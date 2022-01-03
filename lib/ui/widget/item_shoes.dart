@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
+import 'package:test_mobile_apps_dev/provider/product_model.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
@@ -15,6 +18,7 @@ class ItemShoesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // log("cekDataItem $data");
     return Card(
       elevation: 2,
       color: Colors.white,
@@ -22,10 +26,7 @@ class ItemShoesCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
       ),
       child: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width *
+        width: MediaQuery.of(context).size.width *
             0.35, //width based on 35 percent from size device / phone
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -196,16 +197,15 @@ class ItemShoesCard extends StatelessWidget {
       {double size = 30, required BuildContext context}) {
     return InkWell(
         onTap: () {
-          // state.setFavorite(data);
-          // favoriteModel.context.read<FavoriteModel>().setFavorite(data);
-          context.read<FavoriteModel>().setFavorite(data);
+          context.read<ProdukModel>().setFavoriteIndicator(data);
+          context.read<FavoriteModel>().saveFavorite(data);
         },
         child: Icon(Icons.favorite,
             size: size,
             color: data.favorite != null
                 ? data.favorite == 1 //cek
-                ? Colors.pink
-                : Colors.grey
+                    ? Colors.pink
+                    : Colors.grey
                 : Colors.grey));
   }
 }

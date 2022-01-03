@@ -5,7 +5,7 @@ class Produk {
   late int idBrand;
   late String warnaHex;
   late String pathImage;
-  int? favorite = 0;
+  int favorite = 0;
 
 //<editor-fold desc="Data Methods">
 

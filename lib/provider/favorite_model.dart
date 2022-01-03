@@ -101,7 +101,7 @@ class FavoriteModel extends ChangeNotifier {
 
     try {
       var db = await DatabaseHelper().database;
-      var con = ProdukCtr(dbClient: db);
+      var con = FavoriteCtr(dbClient: db);
       var user = await VPref.getDataUser();
 
       // log("cekIDUser ${user.idUser}");

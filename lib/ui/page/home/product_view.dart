@@ -15,7 +15,7 @@ class ProductView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (BuildContext context, ProdukModel state, Widget? child) {
-        print("rebuild produkModel!");
+        print("rebuild widget-produkModel!");
         this.state = state;
         return body(context);
       },

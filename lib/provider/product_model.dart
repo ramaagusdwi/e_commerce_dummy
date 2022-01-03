@@ -33,13 +33,15 @@ class ProdukModel extends ChangeNotifier {
   List<Produk> vincencioProductsLocal = [];
 
   late var database;
+  int isFavorite = 0;
 
   ProdukModel(this.context) {
     init();
   }
 
   Future<void> init() async {
-    log("cek INIT PRODUK MODEL");
+    log("PRODUK MODEL");
+    log("INIT CALLED");
     _resultState = ResultState.Loading;
     notifyListeners();
 
@@ -140,7 +142,8 @@ class ProdukModel extends ChangeNotifier {
         nama: "Aerostreet Boots Adventure 191",
         harga: 99900,
         pathImage: 'aerostreet/AC_STONEBROKEMID.BLACK.1.jpeg',
-        warnaHex: '#000000'));
+        warnaHex: '#000000',
+        favorite: 0));
 
     listProduk.add(Produk(
         idBrand: 1,
@@ -282,5 +285,43 @@ class ProdukModel extends ChangeNotifier {
         harga: 499000,
         pathImage: 'vincencio/SUMITTO-ORANGE.ORANGE.1.jpeg',
         warnaHex: ColorSource.orangeHex));
+  }
+
+  Future<void> setFavoriteIndicator(Produk produk) async {
+    log("cek setFavoriteProduk");
+    print("cekidProduk ${produk.idProduk}");
+
+    _resultState = ResultState.Loading;
+    notifyListeners();
+
+    if (produk.favorite == 0) {
+      produk.favorite = 1;
+    } else {
+      produk.favorite = 0;
+    }
+    notifyListeners();
+
+    try {
+      database = await DatabaseHelper().database;
+
+      var dbProdukController = ProdukCtr(dbClient: database);
+
+      int updated = await dbProdukController
+          .updateProductFavorite(produk.idProduk!, favorite: produk.favorite);
+      if (updated > 0) {
+        log("update favorite ok!");
+        // List<Produk> listPeople = await dbProdukController.getProduk();
+        _resultState = ResultState.Success;
+        notifyListeners();
+      } else {
+        log("update favorite failed!");
+        _resultState = ResultState.Failed;
+        notifyListeners();
+      }
+    } catch (err) {
+      print("catch $err");
+      _resultState = ResultState.Failed;
+      notifyListeners();
+    }
   }
 }
