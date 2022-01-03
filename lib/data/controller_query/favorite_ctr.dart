@@ -18,7 +18,7 @@ class FavoriteCtr {
   String tabelUser = 'user';
 
   Future<void> addTabelFavorite() async {
-    log("createTabelFavorite");
+    // log("createTabelFavorite");
     await dbClient.execute('''
         CREATE TABLE IF NOT EXISTS $tabelFavorite ($kolomIdFavorite INTEGER PRIMARY KEY AUTOINCREMENT,
         $kolomIdProduk INTEGER, $kolomIdUser INTEGER,
@@ -29,9 +29,9 @@ class FavoriteCtr {
   }
 
   Future<int> insertFavorite(Favorite favorite) async {
-    log("cek insertFavorite ${favorite.idProduk} ${favorite.idUser}");
+    // log("cek insertFavorite ${favorite.idProduk} ${favorite.idUser}");
     int res = await dbClient.insert(tabelFavorite, favorite.toMap());
-    log("insertFavorite data : $res");
+    // log("insertFavorite data : $res");
 
     return res;
   }
