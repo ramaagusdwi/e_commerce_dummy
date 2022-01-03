@@ -115,9 +115,9 @@ class ItemShoesCard extends StatelessWidget {
                             color: ColorSource.yellow)
                       ],
                     ),
-                    const SizedBox(
-                      height: 3,
-                    ),
+                    // const SizedBox(
+                    //   height: 3,
+                    // ),
                     // iconFavorite(data)
                   ],
                 ),
@@ -206,9 +206,11 @@ class ItemShoesCard extends StatelessWidget {
           if (produk.favorite == 1) {
             log("masuk sini");
             context.read<FavoriteModel>().saveFavorite(produk);
+            context.read<FavoriteModel>().showFavoriteProduk();
           } else {
             log("masuk sini2");
             context.read<FavoriteModel>().removeFavorite(produk);
+            context.read<FavoriteModel>().showFavoriteProduk();
           }
         },
         child: Icon(Icons.favorite,

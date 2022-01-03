@@ -13,12 +13,15 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (BuildContext context, ProdukModel state, Widget? child) {
-        print("rebuild widget-produkModel!");
-        this.state = state;
-        return body(context);
-      },
+    return ChangeNotifierProvider(
+      create: (_) => ProdukModel(context),
+      child: Consumer(
+        builder: (BuildContext context, ProdukModel state, Widget? child) {
+          print("rebuild widget-produkModel!");
+          this.state = state;
+          return body(context);
+        },
+      ),
     );
   }
 

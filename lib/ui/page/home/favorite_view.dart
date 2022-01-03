@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
@@ -25,6 +27,10 @@ class FavoriteView extends StatelessWidget {
   }
 
   Widget body() {
+    for (int i = 0; i < state.favoriteProductList.length; i++) {
+      log("favoriteProduct ${state.favoriteProductList[i]}");
+    }
+
     return state.state == ResultStateFavorite.Loading
         ? const Center(
             child: CircularProgressIndicator(
@@ -47,9 +53,9 @@ class FavoriteView extends StatelessWidget {
                     margin: EdgeInsets.only(top: 16),
                     child: GridView.count(
                         primary: false,
-                        padding: const EdgeInsets.all(20),
-                        crossAxisSpacing: 1,
-                        mainAxisSpacing: 10,
+                        // padding: const EdgeInsets.all(20),
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 5,
                         crossAxisCount: 2,
                         children: [
                           for (int i = 0;

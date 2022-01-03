@@ -42,7 +42,8 @@ class FavoriteCtr {
   Future deleteFavorite(Favorite favorite) async {
     // Delete a record
     int count = await dbClient.rawDelete(
-        'DELETE FROM $tabelFavorite WHERE $kolomIdProduk = ? AND $kolomIdUser = ?', [favorite.idProduk,favorite.idUser]);
+        'DELETE FROM $tabelFavorite WHERE $kolomIdProduk = ? AND $kolomIdUser = ?',
+        [favorite.idProduk, favorite.idUser]);
     assert(count == 1);
     log("cek deleteFavorite $count");
     return count;
@@ -52,6 +53,7 @@ class FavoriteCtr {
     var dbClient = await DatabaseHelper().database;
     List<Map> labels = await dbClient.rawQuery('''
       SELECT
+          produk.id_produk AS id_produk,
           produk.nama_produk AS nama_produk,
           produk.harga AS harga_produk, 
           produk.warna AS warna_produk, 
@@ -71,6 +73,7 @@ class FavoriteCtr {
         ? List<Produk>.generate(
             labels.length,
             (i) => Produk(
+                idProduk: labels[i]['id_produk'],
                 nama: labels[i]['nama_produk'],
                 harga: labels[i]['harga_produk'],
                 idBrand: labels[i]['brand_produk'],
