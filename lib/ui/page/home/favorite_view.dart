@@ -32,16 +32,35 @@ class FavoriteView extends StatelessWidget {
         : state.favoriteProductList.isNotEmpty
             ? Container(
                 // height: 276,
-                height: 230,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.favoriteProductList.length,
-                    itemBuilder: (BuildContext context, int index) =>
+                height: 235,
+                child: GridView.count(
+                    primary: false,
+                    padding: const EdgeInsets.all(20),
+                    crossAxisSpacing: 1,
+                    mainAxisSpacing: 10,
+                    crossAxisCount: 2,
+                    children: [
+                      for (int i = 0;
+                          i < state.favoriteProductList.length - 1;
+                          i++)
                         ItemShoesCard(
-                          state.favoriteProductList[index],
-                        )),
+                          state.favoriteProductList[i],
+                        )
+                    ]),
               )
+            // Container(
+            //             // height: 276,
+            //             height: 230,
+            //             child: ListView.builder(
+            //                 shrinkWrap: true,
+            //                 scrollDirection: Axis.horizontal,
+            //                 itemCount: state.favoriteProductList.length,
+            //                 itemBuilder: (BuildContext context, int index) =>
+            //                     ItemShoesCard(
+            //                       state.favoriteProductList[index],
+            //                     )),
+            //           )
+
             : state.state == ResultStateFavorite.Failed
                 ? Center(
                     child: vText(state.message,

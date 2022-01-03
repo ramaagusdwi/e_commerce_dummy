@@ -38,7 +38,7 @@ class ItemShoesCard extends StatelessWidget {
                 // fit: StackFit.expand,
                 children: [
                   Container(
-                    width: 160,
+                    width: double.infinity,
                     height: 140,
                     margin: const EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
