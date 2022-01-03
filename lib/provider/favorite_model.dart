@@ -42,7 +42,7 @@ class FavoriteModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setFavorite(Produk produk) async {
+  Future<void> saveFavorite(Produk produk) async {
     print("setFavorite!");
     _resultState = ResultStateFavorite.Loading;
     notifyListeners();
@@ -71,29 +71,29 @@ class FavoriteModel extends ChangeNotifier {
     }
   }
 
-  Future<void> unFavorite(Produk produk) async {
-    _resultState = ResultStateFavorite.Loading;
-    notifyListeners();
-
-    try {
-      var con = FavoriteCtr(dbClient: database);
-      print("cek produk name ${produk.nama}");
-      var user = await VPref.getDataUser();
-      // var favorite = Favorite(idProduk: produk.idProduk!, idUser: user.idUser);
-      // int insert = await con.insertFavorite(favorite);
-      // if (insert > 0) {
-      //   log("success insert");
-      //   // List<Produk> listProduk = await con.getProduk();
-      //   // emit(SuccessState(listPeople)); //show list from database
-      // } else {
-      //   log("failed insert");
-      //   // emit(FailedState('Failed favorites'));
-      // }
-    } catch (err) {
-      print("catch $err");
-      // emit(FailedState('An unknown error occured'));
-    }
-  }
+  // Future<void> unFavorite(Produk produk) async {
+  //   _resultState = ResultStateFavorite.Loading;
+  //   notifyListeners();
+  //
+  //   try {
+  //     var con = FavoriteCtr(dbClient: database);
+  //     print("cek produk name ${produk.nama}");
+  //     var user = await VPref.getDataUser();
+  //     // var favorite = Favorite(idProduk: produk.idProduk!, idUser: user.idUser);
+  //     // int insert = await con.insertFavorite(favorite);
+  //     // if (insert > 0) {
+  //     //   log("success insert");
+  //     //   // List<Produk> listProduk = await con.getProduk();
+  //     //   // emit(SuccessState(listPeople)); //show list from database
+  //     // } else {
+  //     //   log("failed insert");
+  //     //   // emit(FailedState('Failed favorites'));
+  //     // }
+  //   } catch (err) {
+  //     print("catch $err");
+  //     // emit(FailedState('An unknown error occured'));
+  //   }
+  // }
 
   Future<void> showFavoriteProduk() async {
     _resultState = ResultStateFavorite.Loading;
@@ -104,19 +104,19 @@ class FavoriteModel extends ChangeNotifier {
       var con = ProdukCtr(dbClient: db);
       var user = await VPref.getDataUser();
 
-      log("cekIDUser ${user.idUser}");
+      // log("cekIDUser ${user.idUser}");
 
       favoriteProductList.clear();
       favoriteProductList = await con.getProductFavoriteByUser(user.idUser);
 
       for (final i in favoriteProductList) {
-        log('cekFavoriteProduct: $i}');
+        // log('cekFavoriteProduct: $i}');
       }
 
       _resultState = ResultStateFavorite.Success;
       notifyListeners();
     } catch (err) {
-      print("catch showFavoriteProduk $err");
+      // print("catch showFavoriteProduk $err");
       _resultState = ResultStateFavorite.Failed;
       _message = err.toString();
       notifyListeners();
