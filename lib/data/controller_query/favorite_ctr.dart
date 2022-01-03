@@ -42,8 +42,9 @@ class FavoriteCtr {
   Future deleteFavorite(Favorite favorite) async {
     // Delete a record
     int count = await dbClient.rawDelete(
-        'DELETE FROM $tabelFavorite WHERE name = ?', [favorite.idProduk]);
+        'DELETE FROM $tabelFavorite WHERE $kolomIdProduk = ? AND $kolomIdUser = ?', [favorite.idProduk,favorite.idUser]);
     assert(count == 1);
+    log("cek deleteFavorite $count");
     return count;
   }
 

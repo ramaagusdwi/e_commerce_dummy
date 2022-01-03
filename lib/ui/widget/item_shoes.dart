@@ -193,19 +193,41 @@ class ItemShoesCard extends StatelessWidget {
     );
   }
 
-  InkWell iconFavorite(Produk data,
+  InkWell iconFavorite(Produk produk,
       {double size = 30, required BuildContext context}) {
     return InkWell(
         onTap: () {
-          context.read<ProdukModel>().setFavoriteIndicator(data);
-          context.read<FavoriteModel>().saveFavorite(data);
+          toggleFavorite(produk);
+
+          context
+              .read<ProdukModel>()
+              .setIndicatorColorFavorite(produk.idProduk!, produk.favorite);
+
+          if (produk.favorite == 1) {
+            log("masuk sini");
+            context.read<FavoriteModel>().saveFavorite(produk);
+          } else {
+            log("masuk sini2");
+            context.read<FavoriteModel>().removeFavorite(produk);
+          }
         },
         child: Icon(Icons.favorite,
             size: size,
-            color: data.favorite != null
-                ? data.favorite == 1 //cek
+            color: produk.favorite != null
+                ? produk.favorite == 1 //cek
                     ? Colors.pink
                     : Colors.grey
                 : Colors.grey));
+  }
+
+  void toggleFavorite(Produk produk) {
+    if (produk.favorite == 0) {
+      log("masuk sini favorite 0");
+      produk.favorite = 1;
+    } else {
+      log("masuk sini favorite 1");
+      //delete favorite product
+      produk.favorite = 0;
+    }
   }
 }

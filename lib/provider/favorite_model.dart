@@ -71,30 +71,6 @@ class FavoriteModel extends ChangeNotifier {
     }
   }
 
-  // Future<void> unFavorite(Produk produk) async {
-  //   _resultState = ResultStateFavorite.Loading;
-  //   notifyListeners();
-  //
-  //   try {
-  //     var con = FavoriteCtr(dbClient: database);
-  //     print("cek produk name ${produk.nama}");
-  //     var user = await VPref.getDataUser();
-  //     // var favorite = Favorite(idProduk: produk.idProduk!, idUser: user.idUser);
-  //     // int insert = await con.insertFavorite(favorite);
-  //     // if (insert > 0) {
-  //     //   log("success insert");
-  //     //   // List<Produk> listProduk = await con.getProduk();
-  //     //   // emit(SuccessState(listPeople)); //show list from database
-  //     // } else {
-  //     //   log("failed insert");
-  //     //   // emit(FailedState('Failed favorites'));
-  //     // }
-  //   } catch (err) {
-  //     print("catch $err");
-  //     // emit(FailedState('An unknown error occured'));
-  //   }
-  // }
-
   Future<void> showFavoriteProduk() async {
     _resultState = ResultStateFavorite.Loading;
     notifyListeners();
@@ -117,6 +93,37 @@ class FavoriteModel extends ChangeNotifier {
       notifyListeners();
     } catch (err) {
       // print("catch showFavoriteProduk $err");
+      _resultState = ResultStateFavorite.Failed;
+      _message = err.toString();
+      notifyListeners();
+    }
+  }
+
+  Future<void> removeFavorite(Produk produk) async {
+    print("removeFavorite!");
+    _resultState = ResultStateFavorite.Loading;
+    notifyListeners();
+
+    try {
+      var db = await DatabaseHelper().database;
+      var con = FavoriteCtr(dbClient: db);
+
+      var user = await VPref.getDataUser();
+
+      var favorite = Favorite(idProduk: produk.idProduk!, idUser: user.idUser);
+
+      int insert = await con.deleteFavorite(favorite);
+      if (insert > 0) {
+        log("success remove");
+        _resultState = ResultStateFavorite.Success;
+      } else {
+        log("failed remove");
+        _resultState = ResultStateFavorite.Failed;
+      }
+      notifyListeners();
+
+    } catch (err) {
+      print("catch removeFavorite $err");
       _resultState = ResultStateFavorite.Failed;
       _message = err.toString();
       notifyListeners();

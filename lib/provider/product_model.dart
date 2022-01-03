@@ -287,18 +287,11 @@ class ProdukModel extends ChangeNotifier {
         warnaHex: ColorSource.orangeHex));
   }
 
-  Future<void> setFavoriteIndicator(Produk produk) async {
+  Future<void> setIndicatorColorFavorite(int idProduk, int favorite) async {
     log("cek setFavoriteProduk");
-    print("cekidProduk ${produk.idProduk}");
+    print("cekidProduk ${idProduk}");
 
     _resultState = ResultState.Loading;
-    notifyListeners();
-
-    if (produk.favorite == 0) {
-      produk.favorite = 1;
-    } else {
-      produk.favorite = 0;
-    }
     notifyListeners();
 
     try {
@@ -306,8 +299,8 @@ class ProdukModel extends ChangeNotifier {
 
       var dbProdukController = ProdukCtr(dbClient: database);
 
-      int updated = await dbProdukController
-          .updateProductFavorite(produk.idProduk!, favorite: produk.favorite);
+      int updated = await dbProdukController.updateProductFavorite(idProduk,
+          favorite: favorite);
       if (updated > 0) {
         log("update favorite ok!");
         // List<Produk> listPeople = await dbProdukController.getProduk();
