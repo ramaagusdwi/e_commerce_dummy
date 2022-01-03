@@ -197,21 +197,7 @@ class ItemShoesCard extends StatelessWidget {
       {double size = 30, required BuildContext context}) {
     return InkWell(
         onTap: () {
-          toggleFavorite(produk);
-
-          context
-              .read<ProdukModel>()
-              .setIndicatorColorFavorite(produk.idProduk!, produk.favorite);
-
-          if (produk.favorite == 1) {
-            log("masuk sini");
-            context.read<FavoriteModel>().saveFavorite(produk);
-            context.read<FavoriteModel>().showFavoriteProduk();
-          } else {
-            log("masuk sini2");
-            context.read<FavoriteModel>().removeFavorite(produk);
-            context.read<FavoriteModel>().showFavoriteProduk();
-          }
+          handleTapFavorited(produk, context);
         },
         child: Icon(Icons.favorite,
             size: size,
@@ -220,6 +206,25 @@ class ItemShoesCard extends StatelessWidget {
                     ? Colors.pink
                     : Colors.grey
                 : Colors.grey));
+  }
+
+  void handleTapFavorited(Produk produk, BuildContext context) {
+    toggleFavorite(produk);
+
+    setColorIconFavorite(context, produk);
+
+    if (produk.favorite == 1) {
+      context.read<FavoriteModel>().saveFavorite(produk);
+    } else {
+      context.read<FavoriteModel>().removeFavorite(produk);
+    }
+    context.read<FavoriteModel>().showFavoriteProduk();
+  }
+
+  void setColorIconFavorite(BuildContext context, Produk produk) {
+    context
+        .read<ProdukModel>()
+        .setIndicatorColorFavorite(produk.idProduk!, produk.favorite);
   }
 
   void toggleFavorite(Produk produk) {
