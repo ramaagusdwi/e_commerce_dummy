@@ -65,7 +65,7 @@ class ProductView extends StatelessWidget {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 4,
+                                itemCount: state.aerostreetProductsLocal.length,
                                 itemBuilder: (BuildContext context,
                                         int index) =>
                                     ItemShoesCard(
@@ -94,7 +94,7 @@ class ProductView extends StatelessWidget {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 4,
+                                itemCount: state.ardilesProductsLocal.length,
                                 itemBuilder:
                                     (BuildContext context, int index) =>
                                         ItemShoesCard(
@@ -123,7 +123,7 @@ class ProductView extends StatelessWidget {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 4,
+                                itemCount: state.relicaProductsLocal.length,
                                 itemBuilder:
                                     (BuildContext context, int index) =>
                                         ItemShoesCard(
@@ -153,7 +153,7 @@ class ProductView extends StatelessWidget {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 4,
+                                itemCount: state.rougheProductLocal.length,
                                 itemBuilder:
                                     (BuildContext context, int index) =>
                                         ItemShoesCard(
@@ -183,7 +183,7 @@ class ProductView extends StatelessWidget {
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
-                                itemCount: 4,
+                                itemCount: state.vincencioProductsLocal.length,
                                 itemBuilder: (BuildContext context,
                                         int index) =>
                                     ItemShoesCard(

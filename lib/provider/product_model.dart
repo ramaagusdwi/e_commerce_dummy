@@ -32,6 +32,12 @@ class ProdukModel extends ChangeNotifier {
   List<Produk> rougheProductLocal = [];
   List<Produk> vincencioProductsLocal = [];
 
+  // List<Produk> aerostreetProductsLocal = [];
+  // List<Produk> ardilesProductsLocal = [];
+  // List<Produk> relicaProductsLocal = [];
+  // List<Produk> rougheProductLocal = [];
+  // List<Produk> vincencioProductsLocal = [];
+
   late var database;
   int isFavorite = 0;
 
@@ -357,27 +363,58 @@ class ProdukModel extends ChangeNotifier {
       notifyListeners();
     } else {
       log("keyword search terisi");
-      aerostreetProductsLocal = aerostreetProductsLocal =
-          aerostreetProductsLocal
-              .where((produk) =>
-                  produk.nama.toLowerCase().contains(keyword.toLowerCase()))
-              .toList();
-      ardilesProductsLocal = ardilesProductsLocal = ardilesProductsLocal
+      // aerostreetProductsLocal = [];
+      // var tempAerostreet = aerostreetProductsLocal; //save list in new variable
+      // log("cekList tempAerostreet ${tempAerostreet.length}");
+      // aerostreetProductsLocal.clear(); //clear all value list
+      final result = aerostreetProductsLocal
           .where((produk) =>
-              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()) ||
+              produk.namaBrand.toLowerCase().contains(
+                  keyword.toLowerCase())) //assign filter list to variable
           .toList();
-      relicaProductsLocal = relicaProductsLocal = relicaProductsLocal
+      aerostreetProductsLocal.clear();
+      aerostreetProductsLocal = result;
+      log("cekItem $result");
+
+      final result2 = ardilesProductsLocal
           .where((produk) =>
-              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()) ||
+              produk.namaBrand.toLowerCase().contains(
+                  keyword.toLowerCase())) //assign filter list to variable
           .toList();
-      rougheProductLocal = rougheProductLocal = rougheProductLocal
+      ardilesProductsLocal.clear();
+      ardilesProductsLocal = result2;
+      log("cekItem2 $result");
+
+      final result3 = relicaProductsLocal
           .where((produk) =>
-              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()) ||
+              produk.namaBrand.toLowerCase().contains(
+                  keyword.toLowerCase())) //assign filter list to variable
           .toList();
-      vincencioProductsLocal = vincencioProductsLocal = vincencioProductsLocal
+      relicaProductsLocal.clear();
+      relicaProductsLocal = result3;
+      log("cekItem3 $result");
+
+      final result4 = rougheProductLocal
           .where((produk) =>
-              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
-          .toList();
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()) ||
+              produk.namaBrand.toLowerCase().contains(keyword.toLowerCase()))
+          .toList(); //assign filter list to variable
+      rougheProductLocal.clear();
+      rougheProductLocal = result4;
+      log("cekItem4 $result");
+
+      final result5 = vincencioProductsLocal
+          .where((produk) =>
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()) ||
+              produk.namaBrand.toLowerCase().contains(keyword.toLowerCase()))
+          .toList(); //assign filter list to variable
+      vincencioProductsLocal.clear();
+      vincencioProductsLocal = result5;
+      log("cekItem5 $result");
+
       notifyListeners();
     }
   }
