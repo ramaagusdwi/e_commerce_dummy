@@ -55,73 +55,74 @@ class ProdukModel extends ChangeNotifier {
     listBrand.add(Brand(id: 5, name: "Vincencio"));
 
     //Aerostreetbrand
-    generateAerostreet();
+    initListAerostreet();
 
     //ardiles culture brand
-    generateArdilesCulture();
+    initListArdilesCulture();
 
     //BRAND RELICA
-    generateRelica();
+    initListRelica();
 
     //BRAND ROUGHE
-    generateRougheBrand();
+    initListRougheBrand();
 
     //BRAND VINCENCIO
-    generateVincencioBrand();
+    initListVincencioBrand();
 
-    try {
-      database = await DatabaseHelper().database;
+    // try {
+    database = await DatabaseHelper().database;
 
-      var brandController = BrandCtr(dbClient: database);
-      brandController.insertBanyakBrand(listBrand);
+    var brandController = BrandCtr(dbClient: database);
+    brandController.insertBanyakBrand(listBrand);
 
-      //cek list brand
-      // List<Brand> localListBrand = await brandController.getBrand();
-      // log("cek data Brand Lokal: $localListBrand");
+    //cek list brand dari db
+    List<Brand> localListBrand = await brandController.getBrand();
+    // log("cekInsertedBrandOnLocalDb: $localListBrand");
 
-      var produkController = ProdukCtr(dbClient: database);
+    var produkController = ProdukCtr(dbClient: database);
 
-      //insert produk to db
-      for (int i = 0; i <= listProduk.length - 1; i++) {
-        produkController.insertBanyakProduk(listProduk);
+    //insert produk to db
+    for (int i = 0; i <= listProduk.length - 1; i++) {
+      produkController.insertBanyakProduk(listProduk);
 
-        //cek list produk
-        // List<Produk> localListProduk = await produkController.getProduk();
-        // log("cek data Produk Local : $localListProduk");
-      }
-
-      await showListProdukByBrand(
-        produkController,
-      );
-
-      for (final i in aerostreetProductsLocal) {
-        log('aerostreet: $i}');
-      }
-
-      for (final i in ardilesProductsLocal) {
-        log('ardile: $i}');
-      }
-
-      for (final i in relicaProductsLocal) {
-        log('relica: $i}');
-      }
-
-      for (final i in rougheProductLocal) {
-        log('roughe: $i}');
-      }
-
-      for (final i in vincencioProductsLocal) {
-        log('vincencio: $i}');
-      }
-    } catch (err) {
-      log("brand catch $err");
+      //cek list produk dari db
+      List<Produk> localListProduk = await produkController.getProduk();
+      // log("cekInsertedProdukOnLocalDb : $localListProduk");
     }
+
+    await showListProdukByBrandFromLocalDb(
+      produkController,
+    );
+
+    //tampilkan masing" produk
+    // for (final i in aerostreetProductsLocal) {
+    //   log('aerostreet: $i}');
+    // }
+    //
+    // for (final i in ardilesProductsLocal) {
+    //   log('ardile: $i}');
+    // }
+    //
+    // for (final i in relicaProductsLocal) {
+    //   log('relica: $i}');
+    // }
+    //
+    // for (final i in rougheProductLocal) {
+    //   log('roughe: $i}');
+    // }
+    //
+    // for (final i in vincencioProductsLocal) {
+    //   log('vincencio: $i}');
+    // }
+    // } catch (err) {
+    //   log("catch Produk $err");
+    // }
 
     _resultState = ResultState.Success;
     notifyListeners();
   }
 
-  void generateAerostreet() {
+  void initListAerostreet() {
     listProduk.add(Produk(
         idBrand: 1,
         nama: "Aerostreet Boots Adventure 191",
@@ -152,7 +153,7 @@ class ProdukModel extends ChangeNotifier {
         warnaHex: '#000000'));
   }
 
-  void generateArdilesCulture() {
+  void initListArdilesCulture() {
     listProduk.add(Produk(
         idBrand: 2,
         nama: "Ardiles Culture X VLCNZD Sneakers Elemental Black",
@@ -182,7 +183,7 @@ class ProdukModel extends ChangeNotifier {
         warnaHex: '#000000'));
   }
 
-  void generateRelica() {
+  void initListRelica() {
     listProduk.add(Produk(
         idBrand: 3,
         nama: "Relica Sneakers Arvie RLC 08 Brown",
@@ -212,7 +213,7 @@ class ProdukModel extends ChangeNotifier {
         warnaHex: ColorSource.maroonHex));
   }
 
-  void generateRougheBrand() {
+  void initListRougheBrand() {
     listProduk.add(Produk(
         idBrand: 4,
         nama: "Roughee Sports Sailendra Navy",
@@ -242,7 +243,7 @@ class ProdukModel extends ChangeNotifier {
         warnaHex: '#964B00'));
   }
 
-  void generateVincencioBrand() {
+  void initListVincencioBrand() {
     listProduk.add(Produk(
         idBrand: 5,
         nama: "Vincencio Sandals Moku Triple Black",
@@ -314,11 +315,13 @@ class ProdukModel extends ChangeNotifier {
       ProdukCtr produkController = new ProdukCtr(dbClient: database);
 
       if (enteredKeyword.isEmpty) {
+        log("empty keyword");
         // if the search field is empty or only contains white-space, we'll display all users
-        await showListProdukByBrand(produkController);
+        await showListProdukByBrandFromLocalDb(produkController);
       } else {
-        print("masuk not empty");
-        await showListProdukByBrand(produkController, keyword: enteredKeyword);
+        log("not empty keyword");
+        await showListProdukByBrandFromLocalDb(produkController,
+            keyword: enteredKeyword);
         // we use the toLowerCase() method to make it case-insensitive
       }
 
@@ -331,27 +334,29 @@ class ProdukModel extends ChangeNotifier {
     }
   }
 
-  Future<void> showListProdukByBrand(ProdukCtr produkController,
+  Future<void> showListProdukByBrandFromLocalDb(ProdukCtr produkController,
       {String? keyword}) async {
     if (keyword == null) {
+      log("keyword search kosong");
       aerostreetProductsLocal.clear();
       ardilesProductsLocal.clear();
       relicaProductsLocal.clear();
       rougheProductLocal.clear();
       vincencioProductsLocal.clear();
       aerostreetProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(1);
+          await produkController.getProdukBerdasarkanBrand(1);
       ardilesProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(2);
+          await produkController.getProdukBerdasarkanBrand(2);
 
-      relicaProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(3);
+      relicaProductsLocal = await produkController.getProdukBerdasarkanBrand(3);
 
-      rougheProductLocal = await produkController.showProdukBerdasarkanBrand(4);
+      rougheProductLocal = await produkController.getProdukBerdasarkanBrand(4);
 
       vincencioProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(5);
+          await produkController.getProdukBerdasarkanBrand(5);
+      notifyListeners();
     } else {
+      log("keyword search terisi");
       aerostreetProductsLocal = aerostreetProductsLocal =
           aerostreetProductsLocal
               .where((produk) =>

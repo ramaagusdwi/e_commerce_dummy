@@ -5,7 +5,7 @@ class Produk {
   late int idBrand;
   late String warnaHex;
   late String pathImage;
-  String? namaBrand;
+  String namaBrand = "brand";
   int favorite = 0;
 
 //<editor-fold desc="Data Methods">
@@ -17,7 +17,7 @@ class Produk {
     required this.warnaHex,
     required this.idBrand,
     required this.pathImage,
-    this.namaBrand,
+    this.namaBrand = "brand",
     this.favorite = 0,
   });
 
@@ -47,7 +47,7 @@ class Produk {
 
   Map<String, dynamic> toMap() {
     return {
-      'nama_produk': this.nama,
+      'nama': this.nama,
       'harga': this.harga,
       'id_brand': this.idBrand,
       'path_terakhir': this.pathImage,

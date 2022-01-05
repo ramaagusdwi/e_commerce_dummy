@@ -14,7 +14,7 @@ class ProdukCtr {
   String tabelProduk = 'produk';
   String kolomIdProduk = 'id_produk';
   String kolomHarga = 'harga';
-  String kolomNamaProduk = 'nama_produk';
+  String kolomNama = 'nama';
   String kolomPathTerakhir = 'path_terakhir';
   String kolomWarna = 'warna';
   String kolomFavorite = 'favorite';
@@ -28,7 +28,7 @@ class ProdukCtr {
   Future<void> addTabelProduk() async {
     await dbClient.execute('''
         CREATE TABLE IF NOT EXISTS $tabelProduk ($kolomIdProduk INTEGER PRIMARY KEY AUTOINCREMENT,
-        $kolomNamaProduk TEXT, $kolomHarga INTEGER, $kolomIdBrand INTEGER, $kolomPathTerakhir TEXT,
+        $kolomNama TEXT, $kolomHarga INTEGER, $kolomIdBrand INTEGER, $kolomPathTerakhir TEXT,
         $kolomWarna TEXT, $kolomFavorite INTEGER,
         FOREIGN KEY ($kolomIdBrand) REFERENCES $tabelBrand($kolomIdBrand) ON DELETE CASCADE
         )
@@ -62,7 +62,7 @@ class ProdukCtr {
             labels.length,
             (i) => Produk(
                   idProduk: labels[i][kolomIdProduk],
-                  nama: labels[i][kolomNamaProduk],
+                  nama: labels[i][kolomNama],
                   harga: labels[i][kolomHarga],
                   idBrand: labels[i][kolomIdBrand],
                   pathImage: labels[i][kolomPathTerakhir],
@@ -97,7 +97,7 @@ class ProdukCtr {
     List<Map> labels = await dbClient.rawQuery('''
       SELECT
           produk.id_produk AS id_produk,
-          produk.nama_produk AS nama_produk,
+          produk.nama AS nama,
           produk.harga AS harga_produk, 
           produk.warna AS warna_produk, 
           produk.id_brand AS brand_produk, 
@@ -129,64 +129,48 @@ class ProdukCtr {
         : <Produk>[];
   }
 
-  Future showProdukBerdasarkanBrand(int idBrand) async {
+  Future getProdukBerdasarkanBrand(int idBrand) async {
     // String query = '''SELECT * FROM $tabelProduk
     //     WHERE $kolomIdBrand=$idBrand
     //     ''';
     String query = '''
       SELECT
           produk.id_produk AS id_produk,
-          produk.nama_produk AS nama_produk,
-          produk.harga AS harga_produk, 
-          produk.warna AS warna_produk, 
-          produk.id_brand AS id_produk_brand, 
-          produk.path_terakhir AS nama_asset_produk,
-          produk.favorite AS favorite_produk,
-          brand.nama_brand AS nama_brand                   
+          produk.nama AS nama,
+          produk.harga AS harga,
+          produk.warna AS warna,
+          produk.id_brand AS id_produk_brand,
+          produk.path_terakhir AS path_terakhir,
+          produk.favorite AS favorite,
+          brand.nama_brand AS nama_brand
       FROM produk
       INNER JOIN brand
       ON id_produk_brand = brand.id_brand
-      WHERE id_produk_brand=$idBrand 
+      WHERE id_produk_brand=$idBrand
       ''';
 
     List<Map> labels = await dbClient.rawQuery(query);
+
+    log("cekSize ${labels.length}");
+    //cek label query
+    labels.forEach((row) => print("produkBrandFromLocalDb! " + row.toString()));
+
+    //cek cekNamaBrand
+    // labels.forEach((row) => print("cekNamaBrand! " + row['nama_brand']));
+
     // Convert the List<Map<String, dynamic> into a List<Type>.
     return labels.isNotEmpty
         ? List<Produk>.generate(
             labels.length,
             (i) => Produk(
                 idProduk: labels[i][kolomIdProduk],
-                nama: labels[i][kolomNamaProduk],
+                nama: labels[i][kolomNama],
                 harga: labels[i][kolomHarga],
-                idBrand: labels[i][kolomIdBrand],
+                idBrand: labels[i]['id_produk_brand'],
                 pathImage: labels[i][kolomPathTerakhir],
                 warnaHex: labels[i][kolomWarna],
                 favorite: labels[i][kolomFavorite],
                 namaBrand: labels[i]['nama_brand']),
-          )
-        : <Produk>[];
-  }
-
-  Future showProdukBerdasarkanBrandDanKeyword(
-    int idBrand,
-  ) async {
-    String query = '''SELECT * FROM $tabelProduk
-        WHERE $kolomIdBrand=$idBrand 
-        ''';
-    List<Map> labels = await dbClient.rawQuery(query);
-    // Convert the List<Map<String, dynamic> into a List<Type>.
-    return labels.isNotEmpty
-        ? List<Produk>.generate(
-            labels.length,
-            (i) => Produk(
-              idProduk: labels[i][kolomIdProduk],
-              nama: labels[i][kolomNamaProduk],
-              harga: labels[i][kolomHarga],
-              idBrand: labels[i][kolomIdBrand],
-              pathImage: labels[i][kolomPathTerakhir],
-              warnaHex: labels[i][kolomWarna],
-              favorite: labels[i][kolomFavorite],
-            ),
           )
         : <Produk>[];
   }

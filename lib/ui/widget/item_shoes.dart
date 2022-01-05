@@ -89,8 +89,8 @@ class ItemShoesCard extends StatelessWidget {
                           fontSize: 11,
                           color: ColorSource.black2),
                     ),
-                    const Text(
-                      "Dummy Brand",
+                    Text(
+                      "${data.namaBrand}",
                       overflow: TextOverflow.visible,
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
