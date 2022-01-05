@@ -119,9 +119,7 @@ class ProductDetailPage extends StatelessWidget {
   }
 
   Future<void> handleTapFavorited(Produk produk, BuildContext context) async {
-    toggleFavorite(produk);
-
-    setColorIconFavorite(context, produk);
+    toggleFavorite(produk, context);
 
     if (produk.favorite == 1) {
       context.read<FavoriteModel>().saveFavorite(produk);
@@ -137,20 +135,23 @@ class ProductDetailPage extends StatelessWidget {
     context.read<ProductDetailModel>().switchColor();
   }
 
-  void setColorIconFavorite(BuildContext context, Produk produk) {
-    context
-        .read<ProdukModel>()
-        .setIndicatorColorFavorite(produk.idProduk!, produk.favorite);
-  }
-
-  void toggleFavorite(Produk produk) {
+  void toggleFavorite(Produk produk, BuildContext context) {
     if (produk.favorite == 0) {
       log("masuk sini favorite 0");
       produk.favorite = 1;
+      setColorIconFavorite(context, produk.idProduk!, produk.favorite);
     } else {
       log("masuk sini favorite 1");
       //delete favorite product
       produk.favorite = 0;
+      setColorIconFavorite(context, produk.idProduk!, produk.favorite);
     }
+  }
+
+  void setColorIconFavorite(
+      BuildContext context, int idProduk, int flagFavorite) {
+    context
+        .read<ProdukModel>()
+        .setIndicatorColorFavorite(idProduk, flagFavorite);
   }
 }
