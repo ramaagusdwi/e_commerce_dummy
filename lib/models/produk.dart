@@ -5,6 +5,7 @@ class Produk {
   late int idBrand;
   late String warnaHex;
   late String pathImage;
+  String? namaBrand;
   int favorite = 0;
 
 //<editor-fold desc="Data Methods">
@@ -16,6 +17,7 @@ class Produk {
     required this.warnaHex,
     required this.idBrand,
     required this.pathImage,
+    this.namaBrand,
     this.favorite = 0,
   });
 
@@ -51,6 +53,7 @@ class Produk {
       'path_terakhir': this.pathImage,
       'warna': this.warnaHex,
       'favorite': this.favorite,
+      // 'nama_brand': this.namaBrand,
     };
   }
 
