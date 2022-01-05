@@ -9,6 +9,7 @@ import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
 import 'package:test_mobile_apps_dev/provider/product_detail_model.dart';
 import 'package:test_mobile_apps_dev/provider/product_model.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
+import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
 class ProductDetailPage extends StatelessWidget {
   static const route = '/productDetail';
@@ -75,7 +76,7 @@ class ProductDetailPage extends StatelessWidget {
               [
                 Text(
                   "${args.nama}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const SizedBox(
                   height: 4,
@@ -84,12 +85,41 @@ class ProductDetailPage extends StatelessWidget {
                   height: 32,
                 ),
                 Text(
-                  "Brand",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-                Text(
                   "${args.namaBrand}",
-                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                      color: ColorSource.textGrey2),
+                ),
+                SizedBox(
+                  height: 32,
+                ),
+                vText(args.harga.toString(),
+                    money: true,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: ColorSource.yellow),
+                SizedBox(
+                  height: 32,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${args.namaBrand} : ",
+                      overflow: TextOverflow.visible,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 20,
+                          color: ColorSource.textGrey2),
+                    ),
+                    buildCircle(
+                        child: const SizedBox(),
+                        colorArgs: HexColor(args.warnaHex),
+                        size: 40),
+                  ],
                 ),
               ],
             ),
@@ -153,5 +183,26 @@ class ProductDetailPage extends StatelessWidget {
     context
         .read<ProdukModel>()
         .setIndicatorColorFavorite(idProduk, flagFavorite);
+  }
+
+  Container buildCircle({
+    required Widget child,
+    required Color colorArgs,
+    required double size,
+  }) {
+    return Container(
+      height: size,
+      width: size,
+      // padding: EdgeInsets.a,
+      decoration: BoxDecoration(
+        color: colorArgs,
+        border: Border.all(
+          color: colorArgs,
+        ),
+        shape: BoxShape.circle,
+      ),
+      // child: whiteSmallText('1'),
+      child: child,
+    );
   }
 }
