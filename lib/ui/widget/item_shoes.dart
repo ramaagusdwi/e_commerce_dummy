@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
+import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
 import 'package:test_mobile_apps_dev/provider/product_model.dart';
@@ -208,7 +210,7 @@ class ItemShoesCard extends StatelessWidget {
                 : Colors.grey));
   }
 
-  void handleTapFavorited(Produk produk, BuildContext context) {
+  Future<void> handleTapFavorited(Produk produk, BuildContext context) async {
     toggleFavorite(produk);
 
     setColorIconFavorite(context, produk);
@@ -218,6 +220,11 @@ class ItemShoesCard extends StatelessWidget {
     } else {
       context.read<FavoriteModel>().removeFavorite(produk);
     }
+    var db = await DatabaseHelper().database;
+    var produkController = ProdukCtr(dbClient: db);
+    context
+        .read<ProdukModel>()
+        .showListProdukByBrandFromLocalDb(produkController);
     context.read<FavoriteModel>().showFavoriteProduk();
   }
 
