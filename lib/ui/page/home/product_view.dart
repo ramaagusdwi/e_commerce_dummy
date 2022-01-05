@@ -52,17 +52,23 @@ class ProductView extends StatelessWidget {
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
-                    : Container(
-                        // height: 276,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                ItemShoesCard(
-                                    state.aerostreetProductsLocal[index])),
-                      ),
+                    : state.aerostreetProductsLocal.isEmpty
+                        ? vText("Data tidak ada",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11,
+                            color: ColorSource.black)
+                        : Container(
+                            // height: 276,
+                            height: 230,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 4,
+                                itemBuilder: (BuildContext context,
+                                        int index) =>
+                                    ItemShoesCard(
+                                        state.aerostreetProductsLocal[index])),
+                          ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -75,17 +81,23 @@ class ProductView extends StatelessWidget {
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                ItemShoesCard(
-                                    state.ardilesProductsLocal[index])),
-                      ),
+                    : state.ardilesProductsLocal.isEmpty
+                        ? vText("Data tidak ada",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11,
+                            color: ColorSource.black)
+                        : Container(
+                            // height: 280,
+                            height: 230,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 4,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        ItemShoesCard(
+                                            state.ardilesProductsLocal[index])),
+                          ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -98,17 +110,23 @@ class ProductView extends StatelessWidget {
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                ItemShoesCard(
-                                    state.relicaProductsLocal[index])),
-                      ),
+                    : state.relicaProductsLocal.isEmpty
+                        ? vText("Data tidak ada",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11,
+                            color: ColorSource.black)
+                        : Container(
+                            // height: 280,
+                            height: 230,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 4,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        ItemShoesCard(
+                                            state.relicaProductsLocal[index])),
+                          ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -121,16 +139,24 @@ class ProductView extends StatelessWidget {
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                ItemShoesCard(state.rougheProductLocal[index])),
-                      ),
+                    : state.rougheProductLocal.isEmpty
+                        ? vText("Data tidak ada",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11,
+                            color: ColorSource.black,
+                            align: TextAlign.center)
+                        : Container(
+                            // height: 280,
+                            height: 230,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 4,
+                                itemBuilder:
+                                    (BuildContext context, int index) =>
+                                        ItemShoesCard(
+                                            state.rougheProductLocal[index])),
+                          ),
                 const SizedBox(
                   height: 16,
                 ),
@@ -143,17 +169,24 @@ class ProductView extends StatelessWidget {
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
-                    : Container(
-                        // height: 280,
-                        height: 230,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 4,
-                            itemBuilder: (BuildContext context, int index) =>
-                                ItemShoesCard(
-                                    state.vincencioProductsLocal[index])),
-                      ),
+                    : state.vincencioProductsLocal.isEmpty
+                        ? vText("Data tidak ada",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 11,
+                            color: ColorSource.black,
+                            align: TextAlign.center)
+                        : Container(
+                            // height: 280,
+                            height: 230,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 4,
+                                itemBuilder: (BuildContext context,
+                                        int index) =>
+                                    ItemShoesCard(
+                                        state.vincencioProductsLocal[index])),
+                          ),
               ],
             ),
           ),

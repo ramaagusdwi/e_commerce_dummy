@@ -317,6 +317,7 @@ class ProdukModel extends ChangeNotifier {
         // if the search field is empty or only contains white-space, we'll display all users
         await showListProdukByBrand(produkController);
       } else {
+        print("masuk not empty");
         await showListProdukByBrand(produkController, keyword: enteredKeyword);
         // we use the toLowerCase() method to make it case-insensitive
       }
@@ -332,12 +333,12 @@ class ProdukModel extends ChangeNotifier {
 
   Future<void> showListProdukByBrand(ProdukCtr produkController,
       {String? keyword}) async {
-    aerostreetProductsLocal.clear();
-    ardilesProductsLocal.clear();
-    relicaProductsLocal.clear();
-    rougheProductLocal.clear();
-    vincencioProductsLocal.clear();
     if (keyword == null) {
+      aerostreetProductsLocal.clear();
+      ardilesProductsLocal.clear();
+      relicaProductsLocal.clear();
+      rougheProductLocal.clear();
+      vincencioProductsLocal.clear();
       aerostreetProductsLocal =
           await produkController.showProdukBerdasarkanBrand(1);
       ardilesProductsLocal =
@@ -351,22 +352,28 @@ class ProdukModel extends ChangeNotifier {
       vincencioProductsLocal =
           await produkController.showProdukBerdasarkanBrand(5);
     } else {
-      aerostreetProductsLocal = ardilesProductsLocal = ardilesProductsLocal
-          .where((produk) =>
-              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
-          .toList();
+      aerostreetProductsLocal = aerostreetProductsLocal =
+          aerostreetProductsLocal
+              .where((produk) =>
+                  produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+              .toList();
       ardilesProductsLocal = ardilesProductsLocal = ardilesProductsLocal
           .where((produk) =>
               produk.nama.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
-      rougheProductLocal = ardilesProductsLocal = ardilesProductsLocal
+      relicaProductsLocal = relicaProductsLocal = relicaProductsLocal
           .where((produk) =>
               produk.nama.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
-      vincencioProductsLocal = ardilesProductsLocal = ardilesProductsLocal
+      rougheProductLocal = rougheProductLocal = rougheProductLocal
           .where((produk) =>
               produk.nama.toLowerCase().contains(keyword.toLowerCase()))
           .toList();
+      vincencioProductsLocal = vincencioProductsLocal = vincencioProductsLocal
+          .where((produk) =>
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+      notifyListeners();
     }
   }
 }
