@@ -90,24 +90,9 @@ class ProdukModel extends ChangeNotifier {
         // log("cek data Produk Local : $localListProduk");
       }
 
-      aerostreetProductsLocal.clear();
-      aerostreetProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(1);
-
-      ardilesProductsLocal.clear();
-      ardilesProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(2);
-
-      relicaProductsLocal.clear();
-      relicaProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(3);
-
-      rougheProductLocal.clear();
-      rougheProductLocal = await produkController.showProdukBerdasarkanBrand(4);
-
-      vincencioProductsLocal.clear();
-      vincencioProductsLocal =
-          await produkController.showProdukBerdasarkanBrand(5);
+      await showListProdukByBrand(
+        produkController,
+      );
 
       for (final i in aerostreetProductsLocal) {
         log('aerostreet: $i}');
@@ -315,6 +300,73 @@ class ProdukModel extends ChangeNotifier {
       print("catch $err");
       _resultState = ResultState.Failed;
       notifyListeners();
+    }
+  }
+
+  // This function is called whenever the text field changes
+  Future<void> runFilter(String enteredKeyword) async {
+    _resultState = ResultState.Loading;
+    notifyListeners();
+
+    try {
+      List<Produk> produk = [];
+      database = await DatabaseHelper().database;
+      ProdukCtr produkController = new ProdukCtr(dbClient: database);
+
+      if (enteredKeyword.isEmpty) {
+        // if the search field is empty or only contains white-space, we'll display all users
+        await showListProdukByBrand(produkController);
+      } else {
+        await showListProdukByBrand(produkController, keyword: enteredKeyword);
+        // we use the toLowerCase() method to make it case-insensitive
+      }
+
+      _resultState = ResultState.Success;
+      notifyListeners();
+    } catch (err) {
+      print("filter catch $err");
+      _resultState = ResultState.Failed;
+      notifyListeners();
+    }
+  }
+
+  Future<void> showListProdukByBrand(ProdukCtr produkController,
+      {String? keyword}) async {
+    aerostreetProductsLocal.clear();
+    ardilesProductsLocal.clear();
+    relicaProductsLocal.clear();
+    rougheProductLocal.clear();
+    vincencioProductsLocal.clear();
+    if (keyword == null) {
+      aerostreetProductsLocal =
+          await produkController.showProdukBerdasarkanBrand(1);
+      ardilesProductsLocal =
+          await produkController.showProdukBerdasarkanBrand(2);
+
+      relicaProductsLocal =
+          await produkController.showProdukBerdasarkanBrand(3);
+
+      rougheProductLocal = await produkController.showProdukBerdasarkanBrand(4);
+
+      vincencioProductsLocal =
+          await produkController.showProdukBerdasarkanBrand(5);
+    } else {
+      aerostreetProductsLocal = ardilesProductsLocal = ardilesProductsLocal
+          .where((produk) =>
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+      ardilesProductsLocal = ardilesProductsLocal = ardilesProductsLocal
+          .where((produk) =>
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+      rougheProductLocal = ardilesProductsLocal = ardilesProductsLocal
+          .where((produk) =>
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
+      vincencioProductsLocal = ardilesProductsLocal = ardilesProductsLocal
+          .where((produk) =>
+              produk.nama.toLowerCase().contains(keyword.toLowerCase()))
+          .toList();
     }
   }
 }

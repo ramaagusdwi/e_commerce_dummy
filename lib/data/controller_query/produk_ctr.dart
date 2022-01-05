@@ -93,6 +93,29 @@ class ProdukCtr {
         : <Produk>[];
   }
 
+  Future showProdukBerdasarkanBrandDanKeyword(int idBrand, ) async {
+    String query = '''SELECT * FROM $tabelProduk
+        WHERE $kolomIdBrand=$idBrand 
+        ''';
+    List<Map> labels = await dbClient.rawQuery(query);
+    // Convert the List<Map<String, dynamic> into a List<Type>.
+    return labels.isNotEmpty
+        ? List<Produk>.generate(
+      labels.length,
+          (i) => Produk(
+        idProduk: labels[i][kolomIdProduk],
+        nama: labels[i][kolomNamaProduk],
+        harga: labels[i][kolomHarga],
+        idBrand: labels[i][kolomIdBrand],
+        pathImage: labels[i][kolomPathTerakhir],
+        warnaHex: labels[i][kolomWarna],
+        favorite: labels[i][kolomFavorite],
+      ),
+    )
+        : <Produk>[];
+  }
+
+
   clearAllData(String tableName) async {
     Database db = dbClient;
     await db.rawQuery("DELETE FROM $tableName");

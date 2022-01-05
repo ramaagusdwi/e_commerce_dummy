@@ -226,6 +226,7 @@ class ProductView extends StatelessWidget {
             focusColor: ColorSource.black),
         onChanged: (v) {
           // state.searchData(v);
+          state.runFilter(v);
         },
       ),
     );
