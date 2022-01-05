@@ -20,7 +20,10 @@ class FavoriteView extends StatelessWidget {
         builder: (BuildContext context, FavoriteModel state, Widget? child) {
           print("rebuild favoriteModel!");
           this.state = state;
-          return body();
+          return Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: body(),
+          );
         },
       ),
     );
@@ -50,21 +53,42 @@ class FavoriteView extends StatelessWidget {
                         fontSize: 11,
                         color: ColorSource.black))
                 : Container(
-                    margin: EdgeInsets.only(top: 16),
-                    child: GridView.count(
-                        primary: false,
-                        // padding: const EdgeInsets.all(20),
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 5,
-                        crossAxisCount: 2,
-                        children: [
-                          for (int i = 0;
-                              i < state.favoriteProductList.length;
-                              i++)
-                            ItemShoesCard(
-                              state.favoriteProductList[i],
-                            )
-                        ]),
+                    // margin: EdgeInsets.only(top: 16),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            vText("Produk Favorite Count: ",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: ColorSource.black),
+                            vText("${state.favoriteProductList.length}",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: ColorSource.black),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(
+                          child: GridView.count(
+                              primary: false,
+                              // padding: const EdgeInsets.all(20),
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 5,
+                              crossAxisCount: 2,
+                              children: [
+                                for (int i = 0;
+                                    i < state.favoriteProductList.length;
+                                    i++)
+                                  ItemShoesCard(
+                                    state.favoriteProductList[i],
+                                  )
+                              ]),
+                        ),
+                      ],
+                    ),
                   );
   }
 }
