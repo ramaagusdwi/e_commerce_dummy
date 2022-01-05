@@ -54,7 +54,7 @@ class FavoriteCtr {
     List<Map> labels = await dbClient.rawQuery('''
       SELECT
           produk.id_produk AS id_produk,
-          produk.nama_produk AS nama_produk,
+          produk.nama AS nama_produk,
           produk.harga AS harga_produk, 
           produk.warna AS warna_produk, 
           produk.id_brand AS brand_produk, 
