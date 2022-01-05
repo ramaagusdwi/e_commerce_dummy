@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:test_mobile_apps_dev/common/navigation.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
 import 'package:test_mobile_apps_dev/provider/product_model.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
+import 'package:test_mobile_apps_dev/ui/page/product_detail_page.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
 class ItemShoesCard extends StatelessWidget {
@@ -21,111 +23,113 @@ class ItemShoesCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // log("cekDataItem $data");
-    return Card(
-      elevation: 2,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Container(
-        width: MediaQuery.of(context).size.width *
-            0.35, //width based on 35 percent from size device / phone
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 2,
-              child: Stack(
-                // fit: StackFit.expand,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 140,
-                    margin: const EdgeInsets.only(bottom: 10),
-                    decoration: BoxDecoration(
-                      color: Color(0xff7c94b6),
-                      image: DecorationImage(
-                        image: AssetImage('assets/image/${data.pathImage}'),
-                        fit: BoxFit.cover,
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(14.0),
-                        topRight: Radius.circular(14.0),
-                        bottomLeft: Radius.zero,
-                        bottomRight: Radius.zero,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      bottom: 30,
-                      right: 20,
-                      child: iconFavorite(data, size: 30, context: context))
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: 164,
-                padding: const EdgeInsets.all(6.0),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.zero,
-                    topRight: Radius.zero,
-                    bottomLeft: Radius.circular(14.0),
-                    bottomRight: Radius.circular(14.0),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      onTap: () {
+        log("cekTapDataItem $data");
+        Navigation.intentWithData(ProductDetailPage.route, data);
+      },
+      child: Card(
+        elevation: 2,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Container(
+          width: MediaQuery.of(context).size.width *
+              0.35, //width based on 35 percent from size device / phone
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  // fit: StackFit.expand,
                   children: [
-                    Text(
-                      "${data.nama}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 11,
-                          color: ColorSource.black2),
+                    Container(
+                      width: double.infinity,
+                      height: 140,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        color: Color(0xff7c94b6),
+                        image: DecorationImage(
+                          image: AssetImage('assets/image/${data.pathImage}'),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(14.0),
+                          topRight: Radius.circular(14.0),
+                          bottomLeft: Radius.zero,
+                          bottomRight: Radius.zero,
+                        ),
+                      ),
                     ),
-                    Text(
-                      "${data.namaBrand}",
-                      overflow: TextOverflow.visible,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 11,
-                          color: ColorSource.textGrey2),
-                    ),
-                    const SizedBox(
-                      height: 6,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        buildCircle(
-                            child: const SizedBox(),
-                            colorArgs: HexColor(data.warnaHex),
-                            size: 14),
-                        vText(data.harga.toString(),
-                            money: true,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 11,
-                            color: ColorSource.yellow)
-                      ],
-                    ),
-                    // const SizedBox(
-                    //   height: 3,
-                    // ),
-                    // iconFavorite(data)
+                    Positioned(
+                        bottom: 30,
+                        right: 20,
+                        child: iconFavorite(data, size: 30, context: context))
                   ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 1,
+                child: Container(
+                  width: 164,
+                  padding: const EdgeInsets.all(6.0),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.zero,
+                      topRight: Radius.zero,
+                      bottomLeft: Radius.circular(14.0),
+                      bottomRight: Radius.circular(14.0),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${data.nama}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 11,
+                            color: ColorSource.black2),
+                      ),
+                      Text(
+                        "${data.namaBrand}",
+                        overflow: TextOverflow.visible,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 11,
+                            color: ColorSource.textGrey2),
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          buildCircle(
+                              child: const SizedBox(),
+                              colorArgs: HexColor(data.warnaHex),
+                              size: 14),
+                          vText(data.harga.toString(),
+                              money: true,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 11,
+                              color: ColorSource.yellow)
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

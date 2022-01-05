@@ -88,4 +88,29 @@ class FavoriteCtr {
     Database db = dbClient;
     await db.rawQuery("DELETE FROM $tableName");
   }
+
+  //mengembalikan ID resto
+  Future<Produk?> getOneFavoriteProduk(String idProduk,
+      {required String idUser}) async {
+    List<Map> result = await dbClient.rawQuery('''
+      SELECT
+          produk.id_produk AS id_produk,
+          produk.nama AS nama,
+          produk.harga AS harga, 
+          produk.warna AS warna, 
+          produk.id_brand AS id_brand, 
+          produk.path_terakhir AS path_terakhir,
+          produk.favorite AS favorite
+      FROM produk
+      INNER JOIN favorite
+      ON produk.id_produk = favorite.id_produk
+      WHERE favorite.id_user=$idUser AND favorite.id_produk=$idProduk;  
+      ''');
+    print("getOneFavoriteProduk, result QUERY $result");
+    result.forEach((row) => print(row));
+    if (result.length > 0) {
+      return Produk.fromMapQuery(result.first);
+    }
+    return null;
+  }
 }

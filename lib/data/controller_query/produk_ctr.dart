@@ -151,9 +151,9 @@ class ProdukCtr {
 
     List<Map> labels = await dbClient.rawQuery(query);
 
-    log("cekSize ${labels.length}");
+    // log("cekSize ${labels.length}");
     //cek label query
-    labels.forEach((row) => print("produkBrandFromLocalDb! " + row.toString()));
+    // labels.forEach((row) => print("produkBrandFromLocalDb! " + row.toString()));
 
     //cek cekNamaBrand
     // labels.forEach((row) => print("cekNamaBrand! " + row['nama_brand']));

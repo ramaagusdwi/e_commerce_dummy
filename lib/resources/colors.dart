@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ColorSource {
   // primary color
   static const Color primaryColor = Color(0xFF1484FF);
+  static const Color primaryColorOpacity50 = Color(0x801484FF);
   static const Color primaryColorOpacity10 = Color(0x1A1484FF);
   static const Color red = Color(0xFFEB3B5A);
   static const Color green = Color(0xFF44BD32);
@@ -30,6 +31,7 @@ class ColorSource {
   static const navy = Color(0xFF010151); //#010151
   static const maroon = Color(0xFF800000); //#800000
   static const grey = Color(0xFF909497); //#909497
+  static const lightPrimaryColor = Color(0xFFeb837a);
 
   static const brownHex = "#964B00";
   static const maroonHex = "#800000";

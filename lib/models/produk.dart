@@ -57,5 +57,15 @@ class Produk {
     };
   }
 
+  Produk.fromMapQuery(Map<dynamic, dynamic> json) {
+    idProduk = json['id_produk'];
+    nama = json['nama'];
+    harga = json['harga'];
+    idBrand = json['id_brand'];
+    pathImage = json['path_terakhir'];
+    warnaHex = json['warna'];
+    favorite = json['favorite'];
+    // namaBrand = json['nama_brand'];
+  }
 //</editor-fold>
 }
