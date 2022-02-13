@@ -74,6 +74,7 @@ flutter:
     - assets/image/relica/
     - assets/image/ardiles_culture/
     - assets/image/aerostreet/
+    - data/flutter.db
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
