@@ -30,7 +30,8 @@ class LoginModel extends ChangeNotifier {
   Future<String> onLogin(String username, String password) async {
     late var database;
     try {
-      database = await DatabaseHelper().database;
+      database = await DatabaseHelper().database; //tunggu proses init database
+      print("database $database");
     } catch (err) {
       log("cek catch db $err");
     }
@@ -41,8 +42,6 @@ class LoginModel extends ChangeNotifier {
       Map<dynamic, dynamic>? user =
           await loginController.getLogin(username, password);
       if (user != null) {
-        print("cek user ditemukan");
-        // var idUser = user['id_user']!;
         print("cek iduser ${user['id_user']!}");
 
         var userObject = User.fromMap(user);
@@ -57,13 +56,12 @@ class LoginModel extends ChangeNotifier {
         return _message = "Akun ditemukan!";
         //show dialog welcome alert
       } else {
-        print("cek user tidak ditemukan");
         _resultState = ResultState.Failed;
         notifyListeners();
         return _message = "Tidak menemukan akun!";
       }
     } catch (err) {
-      log("cek catch $err");
+      log("Login-Error: $err");
       _resultState = ResultState.Failed;
       notifyListeners();
       return _message = "Error tidak diketahui!";
