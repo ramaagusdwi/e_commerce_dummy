@@ -1,7 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/favorite_ctr.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
@@ -28,21 +30,32 @@ class DatabaseHelper {
 
   static DatabaseHelper? _databaseHelper;
 
+  // This named constructor is the "real" constructor
+  // It'll be called exactly once, by the static property assignment above
+  // it's also private, so it can only be called in this class
   DatabaseHelper._internal() {
     _databaseHelper = this;
   }
 
-  factory DatabaseHelper() => _databaseHelper ?? DatabaseHelper._internal();
+  //this is factory constuctors
+  factory DatabaseHelper() =>
+      _databaseHelper ??
+      DatabaseHelper
+          ._internal(); // membuat satu instance kelas (single ton pattern)
 
   // only have a single app-wide reference to the database
   static late Database _database;
 
   Future<Database> get database async {
+    //method
+    print("call get DB");
     _database = await _initDatabase();
     return _database;
   }
 
   Future<Database> _initDatabase() async {
+    print("call initDatabase");
+
     /// Get the default databases location.
     var path = await getDatabasesPath();
 
@@ -58,7 +71,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     log("onCreateDB");
     addUserTable(db);
-    addTabelBrand(db);
+    addBrandTable(db);
 
     var produk = ProdukCtr(dbClient: db);
     produk.addTabelProduk();
@@ -71,12 +84,21 @@ class DatabaseHelper {
   }
 
   Future<void> addUserTable(Database db) async {
-    await db.execute(
-        'CREATE TABLE IF NOT EXISTS $tabelUser ($kolomIdUser INTEGER PRIMARY KEY AUTOINCREMENT,'
-        '$kolomNamaUser TEXT, $kolomPassword TEXT, $kolomEmail TEXT, $kolomNomerTelp TEXT, $kolomTanggalLahir TEXT)');
+    var result = await db
+        .query('sqlite_master', where: 'name = ?', whereArgs: [tabelUser]);
+    print("tabelPeopleCek $result");
+
+    if (result.isEmpty) {
+      print("TABLE USER KOSONG");
+      await db.execute(
+          'CREATE TABLE IF NOT EXISTS $tabelUser ($kolomIdUser INTEGER PRIMARY KEY AUTOINCREMENT,'
+          '$kolomNamaUser TEXT, $kolomPassword TEXT, $kolomEmail TEXT, $kolomNomerTelp TEXT, $kolomTanggalLahir TEXT)');
+    } else {
+      print("TABLE USER TIDAK KOSONG");
+    }
   }
 
-  Future<void> addTabelBrand(Database db) async {
+  Future<void> addBrandTable(Database db) async {
     await db.execute(
         'CREATE TABLE IF NOT EXISTS $tabelBrand ($kolomIdBrand INTEGER PRIMARY KEY AUTOINCREMENT,'
         '$kolomNamaBrand TEXT)');
