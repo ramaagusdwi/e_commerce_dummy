@@ -14,9 +14,6 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-        // ChangeNotifierProvider.value(
-        // value: ProdukModel(context),
-        // child:
         Consumer(
       builder: (BuildContext context, ProdukModel state, Widget? child) {
         print("rebuild widget-produkModel!");
@@ -24,7 +21,6 @@ class ProductView extends StatelessWidget {
         return body(context);
       },
     );
-    // );
   }
 
   Scaffold body(BuildContext context) {
@@ -50,7 +46,7 @@ class ProductView extends StatelessWidget {
                   height: 4,
                 ),
                 state.state == ResultState.Loading
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
@@ -79,7 +75,7 @@ class ProductView extends StatelessWidget {
                   height: 4,
                 ),
                 state.state == ResultState.Loading
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
@@ -108,7 +104,7 @@ class ProductView extends StatelessWidget {
                   height: 4,
                 ),
                 state.state == ResultState.Loading
-                    ? Center(
+                    ? const Center(
                         child: CircularProgressIndicator(
                         color: ColorSource.primaryColor,
                       ))
