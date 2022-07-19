@@ -7,6 +7,9 @@ class ColorSource {
   static const Color primaryColorOpacity10 = Color(0x1A1484FF);
   static const Color red = Color(0xFFEB3B5A);
   static const Color green = Color(0xFF44BD32);
+  static const Color blackOverlayBg = Color(0x99272A2A);
+  static const Color blackBg = Color(0xFF272A2A);
+  static const Color greenButton = Color(0xFF04C99E);
 
   //text color
   static const Color textColor = Color(0xFF2E3235);

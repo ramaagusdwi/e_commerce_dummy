@@ -145,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   return CustomButton(
                     "Register",
                     heightButton: 70,
-                    paddingHorizontal: 30,
+                    outerPaddingHorizontal: 30,
                     callback: () {
                       //add email validator
                       _isValid = EmailValidator.validate(_emailController.text);

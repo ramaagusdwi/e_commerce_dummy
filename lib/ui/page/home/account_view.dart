@@ -119,7 +119,7 @@ class AccountView extends StatelessWidget {
     return CustomButton(
       "Logout",
       heightButton: 50,
-      paddingHorizontal: 30,
+      outerPaddingHorizontal: 30,
       callback: () async {
         await VPref.clearLoginPreference();
         context.read<HomeModel>().selectedIndex(

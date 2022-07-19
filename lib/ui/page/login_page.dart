@@ -190,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
     return CustomButton(
       "Login",
       heightButton: 70,
-      paddingHorizontal: 30,
+      outerPaddingHorizontal: 30,
       callback: () {
         //add email validator
         if (_userNameController.text.isEmpty) {
