@@ -200,15 +200,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  overlay_tooltip:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: fix_bug
-      resolved-ref: c0b6c90d07a109e40fa6cf5611a7575bcd3102dc
-      url: "https://github.com/ramaagusdwi/overlay_tooltip.git"
-    source: git
-    version: "0.2.0"
   path:
     dependency: transitive
     description:
@@ -417,6 +408,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.8"
+  tutorial_coach_mark:
+    dependency: "direct main"
+    description:
+      name: tutorial_coach_mark
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   typed_data:
     dependency: transitive
     description:

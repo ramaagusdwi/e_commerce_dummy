@@ -43,11 +43,7 @@ dependencies:
     git:
       url: https://github.com/AlexHartford/flutter_datetime_picker.git
       ref: master
-  overlay_tooltip:
-    git:
-      url: https://github.com/ramaagusdwi/overlay_tooltip.git
-      ref: fix_bug
-
+  tutorial_coach_mark: ^1.2.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
