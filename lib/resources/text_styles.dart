@@ -7,6 +7,6 @@ class TextStyleSource {
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
     color: Colors.white,
-    height: 4,
+    height: 1,
   );
 }

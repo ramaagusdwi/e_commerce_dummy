@@ -7,7 +7,16 @@ import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
 import 'package:test_mobile_apps_dev/ui/widget/message_border.dart';
 
 class CoachMarkBallon extends StatelessWidget {
-  const CoachMarkBallon({Key? key}) : super(key: key);
+  VoidCallback callback;
+  final String descriptionLine1;
+  final String descriptionLine2;
+
+  CoachMarkBallon(
+      {Key? key,
+      required this.callback,
+      required this.descriptionLine1,
+      required this.descriptionLine2})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +37,14 @@ class CoachMarkBallon extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Lihat daftar produk yang ingin',
+                descriptionLine1,
                 maxLines: 1,
                 overflow: TextOverflow.visible,
                 style: TextStyleSource.fInter13White
-                    .copyWith(fontWeight: FontWeight.w300, height: 0.3),
+                    .copyWith(fontWeight: FontWeight.w300, height: 1.3),
               ),
               Text(
-                ' kamu beli disini',
+                descriptionLine2,
                 maxLines: 1,
                 overflow: TextOverflow.visible,
                 style: TextStyleSource.fInter13White
@@ -54,6 +63,7 @@ class CoachMarkBallon extends StatelessWidget {
             textStyle: TextStyleSource.fInter13White
                 .copyWith(fontWeight: FontWeight.w600),
             callback: () {
+              callback();
               log("button pressed");
             },
           ),
