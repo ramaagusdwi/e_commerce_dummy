@@ -6,16 +6,18 @@ import 'package:test_mobile_apps_dev/resources/text_styles.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
 import 'package:test_mobile_apps_dev/ui/widget/message_border.dart';
 
-class CoachMarkBallon extends StatelessWidget {
+class MessageBallon extends StatelessWidget {
   VoidCallback callback;
   final String descriptionLine1;
   final String descriptionLine2;
+  final double? triangleXOffset;
 
-  CoachMarkBallon(
+  MessageBallon(
       {Key? key,
       required this.callback,
       required this.descriptionLine1,
-      required this.descriptionLine2})
+      required this.descriptionLine2,
+      this.triangleXOffset})
       : super(key: key);
 
   @override
@@ -25,9 +27,9 @@ class CoachMarkBallon extends StatelessWidget {
       width: 320,
       decoration: ShapeDecoration(
         color: ColorSource.blackBg,
-        shape: MessageBorder(),
+        shape: MessageBorder(
+            triangleXOffset: triangleXOffset ?? 10, usePadding: true),
       ),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

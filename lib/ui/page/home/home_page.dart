@@ -1,10 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobile_apps_dev/provider/home_model.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/account_view.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/product_view.dart';
-import 'package:test_mobile_apps_dev/ui/widget/coachmark_ballon.dart';
+import 'package:test_mobile_apps_dev/ui/widget/message_ballon.dart';
+import 'package:test_mobile_apps_dev/utils/extensions.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 import 'favorite_view.dart';
@@ -38,11 +41,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // Future.delayed(Duration.zero, showTutorial);
-    initTargets();
+    // WidgetsBinding.instance?.addPostFrameCallback((_){
+    //   _layout(_);
+    // });
+    // initTargets();
     WidgetsBinding.instance?.addPostFrameCallback(_layout);
   }
 
   void _layout(_) {
+    initTargets();
     Future.delayed(const Duration(milliseconds: 100));
     showTutorial();
   }
@@ -92,7 +99,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.favorite, key: keyBottomNavigation2),
               label: 'Favorites',
             ),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
             ),
@@ -139,6 +146,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initTargets() {
+    log(keyBottomNavigation1.position().dx.toString(), name: 'cekOffsetX');
     targets.clear();
     targets.add(
       TargetFocus(
@@ -146,14 +154,14 @@ class _HomePageState extends State<HomePage> {
           keyTarget: keyBottomNavigation1,
           contents: [
             TargetContent(
-                align: ContentAlign.top,
-                child: CoachMarkBallon(
-                  descriptionLine1: 'Lihat daftar produk yang ingin',
-                  descriptionLine2: ' kamu beli disini',
-                  callback: () {
-                    tutorialCoachMark.next();
-                  },
-                ))
+              align: ContentAlign.top,
+              child: MessageBallon(
+                descriptionLine1: 'Lihat daftar produk yang ingin',
+                descriptionLine2: ' kamu beli disini',
+                triangleXOffset: keyBottomNavigation1.position().dx,
+                callback: () => tutorialCoachMark.next(),
+              ),
+            )
           ]),
     );
     targets.add(
@@ -162,14 +170,14 @@ class _HomePageState extends State<HomePage> {
           keyTarget: keyBottomNavigation2,
           contents: [
             TargetContent(
-                align: ContentAlign.top,
-                child: CoachMarkBallon(
-                  descriptionLine1: 'Lihat daftar produk ',
-                  descriptionLine2: ' yang kamu favoritkan',
-                  callback: () {
-                    tutorialCoachMark.finish();
-                  },
-                ))
+              align: ContentAlign.top,
+              child: MessageBallon(
+                triangleXOffset: 10,
+                descriptionLine1: 'Lihat daftar produk ',
+                descriptionLine2: ' yang kamu favoritkan',
+                callback: () => tutorialCoachMark.finish(),
+              ),
+            )
           ]),
     );
   }
