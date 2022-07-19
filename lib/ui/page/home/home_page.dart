@@ -172,7 +172,7 @@ class _HomePageState extends State<HomePage> {
             TargetContent(
               align: ContentAlign.top,
               child: MessageBallon(
-                triangleXOffset: 10,
+                triangleXOffset: keyBottomNavigation2.position().dx,
                 descriptionLine1: 'Lihat daftar produk ',
                 descriptionLine2: ' yang kamu favoritkan',
                 callback: () => tutorialCoachMark.finish(),
