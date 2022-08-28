@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:test_mobile_apps_dev/provider/register_model.dart';
+import 'package:test_mobile_apps_dev/provider/register_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
 import 'package:test_mobile_apps_dev/utils/date_picker.dart';
@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
-      value: RegisterModel(context),
+      value: RegisterProvider(context),
       child: SafeArea(
         child: Scaffold(
             body: Padding(
@@ -124,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(
                 height: 30,
               ),
-              Consumer<RegisterModel>(
+              Consumer<RegisterProvider>(
                 builder: (ctx, register, __) {
                   if (register.state == ResultState.Loading) {
                     return const Center(

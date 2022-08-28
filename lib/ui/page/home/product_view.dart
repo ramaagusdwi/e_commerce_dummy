@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_mobile_apps_dev/provider/product_model.dart';
+import 'package:test_mobile_apps_dev/provider/product_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/cicrle_widget.dart';
 import 'package:test_mobile_apps_dev/ui/widget/item_shoes.dart';
@@ -9,12 +9,12 @@ import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
 class ProductView extends StatelessWidget {
   ProductView({Key? key}) : super(key: key);
-  late ProdukModel state;
+  late ProductProvider state;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (BuildContext context, ProdukModel state, Widget? child) {
+      builder: (BuildContext context, ProductProvider state, Widget? child) {
         print("rebuild widget-produkModel!");
         this.state = state;
         return body(context);

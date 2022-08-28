@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
-import 'package:test_mobile_apps_dev/provider/home_model.dart';
-import 'package:test_mobile_apps_dev/provider/login_model.dart';
-import 'package:test_mobile_apps_dev/provider/product_model.dart';
+import 'package:test_mobile_apps_dev/provider/home_provider.dart';
+import 'package:test_mobile_apps_dev/provider/login_provider.dart';
+import 'package:test_mobile_apps_dev/provider/product_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
@@ -122,7 +122,7 @@ class AccountView extends StatelessWidget {
       outerPaddingHorizontal: 30,
       callback: () async {
         await VPref.clearLoginPreference();
-        context.read<HomeModel>().selectedIndex(
+        context.read<HomeProvider>().selectedIndex(
             0); //modify the state home page -> set index tab to 0  (default is left)
         Navigator.pushAndRemoveUntil(
             context,

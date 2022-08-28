@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:test_mobile_apps_dev/common/navigation.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
-import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
-import 'package:test_mobile_apps_dev/provider/product_model.dart';
+import 'package:test_mobile_apps_dev/provider/favorite_provider.dart';
+import 'package:test_mobile_apps_dev/provider/product_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/product_detail_page.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
@@ -215,21 +215,21 @@ class ItemShoesCard extends StatelessWidget {
     setColorIconFavorite(context, produk);
 
     if (produk.favorite == 1) {
-      context.read<FavoriteModel>().saveFavorite(produk);
+      context.read<FavoriteProvider>().saveFavorite(produk);
     } else {
-      context.read<FavoriteModel>().removeFavorite(produk);
+      context.read<FavoriteProvider>().removeFavorite(produk);
     }
     var db = await DatabaseHelper().database;
     var produkController = ProdukCtr(dbClient: db);
     context
-        .read<ProdukModel>()
+        .read<ProductProvider>()
         .showListProdukByBrandFromLocalDb(produkController);
-    context.read<FavoriteModel>().showFavoriteProduk();
+    context.read<FavoriteProvider>().showFavoriteProduk();
   }
 
   void setColorIconFavorite(BuildContext context, Produk produk) {
     context
-        .read<ProdukModel>()
+        .read<ProductProvider>()
         .setIndicatorColorFavorite(produk.idProduk!, produk.favorite);
   }
 

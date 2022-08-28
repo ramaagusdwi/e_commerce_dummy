@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/favorite_ctr.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/favorite_controller_query.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/brand.dart';
@@ -11,7 +11,7 @@ import 'package:test_mobile_apps_dev/models/produk.dart';
 
 enum ResultStateFavorite { Loading, Success, Failed, None }
 
-class FavoriteModel extends ChangeNotifier {
+class FavoriteProvider extends ChangeNotifier {
   BuildContext context;
   late ResultStateFavorite _resultState;
 
@@ -25,7 +25,7 @@ class FavoriteModel extends ChangeNotifier {
 
   List<Produk> favoriteProductList = [];
 
-  FavoriteModel(this.context) {
+  FavoriteProvider(this.context) {
     init();
   }
 
@@ -34,6 +34,8 @@ class FavoriteModel extends ChangeNotifier {
     notifyListeners();
 
     database = await DatabaseHelper().database;
+
+    log(database,name: 'cekDatabase');
 
     //load product favorited by user
     showFavoriteProduk();

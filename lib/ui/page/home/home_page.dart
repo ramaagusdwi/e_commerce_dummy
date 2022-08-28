@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_mobile_apps_dev/provider/home_model.dart';
+import 'package:test_mobile_apps_dev/provider/home_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/account_view.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/product_view.dart';
@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late HomeModel homeModel;
+  late HomeProvider homeModel;
   bool done = false;
 
   late TutorialCoachMark tutorialCoachMark;
@@ -64,12 +64,12 @@ class _HomePageState extends State<HomePage> {
 
     void _onItemTapped(int index) {
       print("index $index");
-      Provider.of<HomeModel>(context, listen: false).selectedIndex(index);
+      Provider.of<HomeProvider>(context, listen: false).selectedIndex(index);
     }
 
     return WillPopScope(
         onWillPop: () async => false,
-        child: Consumer<HomeModel>(
+        child: Consumer<HomeProvider>(
           builder: (context, home, child) {
             homeModel = home;
             return buildScaffold(_widgetOptions, _onItemTapped);

@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/register_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/register_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/models/save_user.dart';
 
 enum ResultState { Loading, Success, Failed, None }
 
-class RegisterModel extends ChangeNotifier {
+class RegisterProvider extends ChangeNotifier {
   BuildContext context;
 
   late ResultState _resultState;
@@ -18,7 +18,7 @@ class RegisterModel extends ChangeNotifier {
 
   String get message => _message;
 
-  RegisterModel(this.context) {
+  RegisterProvider(this.context) {
     _resultState = ResultState.None;
     notifyListeners();
   }

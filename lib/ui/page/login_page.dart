@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:test_mobile_apps_dev/provider/login_model.dart';
+import 'package:test_mobile_apps_dev/provider/login_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/home_page.dart';
 import 'package:test_mobile_apps_dev/ui/page/register_page.dart';
@@ -140,8 +140,8 @@ class _LoginPageState extends State<LoginPage> {
             height: 30,
           ),
           ChangeNotifierProvider(
-            create: (_) => LoginModel(context), //buat objek baru
-            child: Consumer<LoginModel>(
+            create: (_) => LoginProvider(context), //buat objek baru
+            child: Consumer<LoginProvider>(
               builder: (ctx, login, __) {
                 if (login.state == ResultState.Loading) {
                   return const Center(
@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
     ));
   }
 
-  CustomButton buildCustomButton(LoginModel login) {
+  CustomButton buildCustomButton(LoginProvider login) {
     return CustomButton(
       "Login",
       heightButton: 70,

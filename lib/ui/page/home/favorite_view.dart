@@ -2,21 +2,21 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
+import 'package:test_mobile_apps_dev/provider/favorite_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/item_shoes.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
 class FavoriteView extends StatelessWidget {
   FavoriteView({Key? key}) : super(key: key);
-  late FavoriteModel state;
+  late FavoriteProvider state;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => FavoriteModel(context),
+      create: (_) => FavoriteProvider(context),
       child: Consumer(
-        builder: (BuildContext context, FavoriteModel state, Widget? child) {
+        builder: (BuildContext context, FavoriteProvider state, Widget? child) {
           print("rebuild favoriteModel!");
           this.state = state;
           return Padding(

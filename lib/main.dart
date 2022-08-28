@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobile_apps_dev/common/navigation.dart';
-import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
-import 'package:test_mobile_apps_dev/provider/home_model.dart';
-import 'package:test_mobile_apps_dev/provider/product_model.dart';
-import 'package:test_mobile_apps_dev/provider/register_model.dart';
+import 'package:test_mobile_apps_dev/provider/favorite_provider.dart';
+import 'package:test_mobile_apps_dev/provider/home_provider.dart';
+import 'package:test_mobile_apps_dev/provider/product_provider.dart';
+import 'package:test_mobile_apps_dev/provider/register_provider.dart';
 import 'package:test_mobile_apps_dev/router/routing.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/home_page.dart';
 import 'package:test_mobile_apps_dev/ui/page/product_detail_page.dart';
@@ -20,16 +20,16 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => RegisterModel(context),
+          create: (_) => RegisterProvider(context),
         ),
         ChangeNotifierProvider(
-          create: (_) => HomeModel(),
+          create: (_) => HomeProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => FavoriteModel(context),
+          create: (_) => FavoriteProvider(context),
         ),
         ChangeNotifierProvider(
-          create: (_) => ProdukModel(context),
+          create: (_) => ProductProvider(context),
         )
       ],
       child: MaterialApp(

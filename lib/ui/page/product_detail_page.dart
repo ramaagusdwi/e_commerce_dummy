@@ -2,29 +2,29 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
-import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
-import 'package:test_mobile_apps_dev/provider/product_detail_model.dart';
-import 'package:test_mobile_apps_dev/provider/product_model.dart';
+import 'package:test_mobile_apps_dev/provider/favorite_provider.dart';
+import 'package:test_mobile_apps_dev/provider/product_detail_provider.dart';
+import 'package:test_mobile_apps_dev/provider/product_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
 class ProductDetailPage extends StatelessWidget {
   static const route = '/productDetail';
-  late ProductDetailModel state;
+  late ProductDetailProvider state;
 
   @override
   Widget build(BuildContext context) {
     final Produk args = ModalRoute.of(context)?.settings.arguments as Produk;
 
     return Scaffold(
-        body: ChangeNotifierProvider<ProductDetailModel>(
-      create: (_) => ProductDetailModel(id: args.idProduk.toString()),
+        body: ChangeNotifierProvider<ProductDetailProvider>(
+      create: (_) => ProductDetailProvider(id: args.idProduk.toString()),
       builder: (context, Widget? child) {
         return Consumer(builder:
-            (BuildContext context, ProductDetailModel state, Widget? child) {
+            (BuildContext context, ProductDetailProvider state, Widget? child) {
           print("rebuild widget-produkDetailModel!");
           this.state = state;
           return customScrollVIew(context, args);
@@ -133,7 +133,7 @@ class ProductDetailPage extends StatelessWidget {
       {double size = 30, required BuildContext context}) {
     return InkWell(onTap: () {
       handleTapFavorited(produk, context);
-    }, child: Consumer<ProductDetailModel>(
+    }, child: Consumer<ProductDetailProvider>(
       builder: (_, state, child) {
         return state.state == ResultProductDetailState.Loading
             ? Center(
@@ -152,17 +152,17 @@ class ProductDetailPage extends StatelessWidget {
     toggleFavorite(produk, context);
 
     if (produk.favorite == 1) {
-      context.read<FavoriteModel>().saveFavorite(produk);
+      context.read<FavoriteProvider>().saveFavorite(produk);
     } else {
-      context.read<FavoriteModel>().removeFavorite(produk);
+      context.read<FavoriteProvider>().removeFavorite(produk);
     }
     var db = await DatabaseHelper().database;
     var produkController = ProdukCtr(dbClient: db);
     context
-        .read<ProdukModel>()
+        .read<ProductProvider>()
         .showListProdukByBrandFromLocalDb(produkController);
-    context.read<FavoriteModel>().showFavoriteProduk();
-    context.read<ProductDetailModel>().switchColor();
+    context.read<FavoriteProvider>().showFavoriteProduk();
+    context.read<ProductDetailProvider>().switchColor();
   }
 
   void toggleFavorite(Produk produk, BuildContext context) {
@@ -181,7 +181,7 @@ class ProductDetailPage extends StatelessWidget {
   void setColorIconFavorite(
       BuildContext context, int idProduk, int flagFavorite) {
     context
-        .read<ProdukModel>()
+        .read<ProductProvider>()
         .setIndicatorColorFavorite(idProduk, flagFavorite);
   }
 

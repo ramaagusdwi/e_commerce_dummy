@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/brand_ctr.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/favorite_ctr.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/produk_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/brand_controller_query.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/favorite_controller_query.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/brand.dart';
@@ -13,7 +13,7 @@ import 'package:test_mobile_apps_dev/resources/colors.dart';
 
 enum ResultState { Loading, Success, Failed, None }
 
-class ProdukModel extends ChangeNotifier {
+class ProductProvider extends ChangeNotifier {
   BuildContext context;
   late ResultState _resultState;
 
@@ -41,7 +41,7 @@ class ProdukModel extends ChangeNotifier {
   late var database;
   int isFavorite = 0;
 
-  ProdukModel(this.context) {
+  ProductProvider(this.context) {
     init();
   }
 
