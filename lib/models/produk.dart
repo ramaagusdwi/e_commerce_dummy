@@ -53,7 +53,6 @@ class Produk {
       'path_terakhir': this.pathImage,
       'warna': this.warnaHex,
       'favorite': this.favorite,
-      // 'nama_brand': this.namaBrand,
     };
   }
 
@@ -65,7 +64,6 @@ class Produk {
     pathImage = json['path_terakhir'];
     warnaHex = json['warna'];
     favorite = json['favorite'];
-    // namaBrand = json['nama_brand'];
   }
 //</editor-fold>
 }
