@@ -14,15 +14,10 @@ import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
 
 class ItemShoesCard extends StatelessWidget {
   late Produk data;
-
-  // late FavoriteModel favoriteModel;
-
-  // ItemShoesCard(data, {Key? key, required favoriteModel}) : super(key: key);
   ItemShoesCard(this.data, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // log("cekDataItem $data");
     return InkWell(
       onTap: () {
         log("cekTapDataItem $data");
@@ -56,7 +51,7 @@ class ItemShoesCard extends StatelessWidget {
                           image: AssetImage('assets/image/${data.pathImage}'),
                           fit: BoxFit.cover,
                         ),
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(14.0),
                           topRight: Radius.circular(14.0),
                           bottomLeft: Radius.zero,

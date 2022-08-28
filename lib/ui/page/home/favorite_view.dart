@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
-import 'package:test_mobile_apps_dev/provider/favorite_model.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/item_shoes.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
@@ -30,9 +29,10 @@ class FavoriteView extends StatelessWidget {
   }
 
   Widget body() {
-    for (int i = 0; i < state.favoriteProductList.length; i++) {
-      log("favoriteProduct ${state.favoriteProductList[i]}");
-    }
+    log(state.favoriteProductList.length.toString(), name: 'favoriteLenght');
+    // for (int i = 0; i < state.favoriteProductList.length; i++) {
+    //   log("favoriteProduct ${state.favoriteProductList[i]}");
+    // }
 
     return state.state == ResultStateFavorite.Loading
         ? const Center(
