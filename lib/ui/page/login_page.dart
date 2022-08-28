@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,9 +32,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.only(right: 30, left: 30, top: 0, bottom: 0),
       child: ListView(
         children: [
-          SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
@@ -45,9 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                   'assets/image/store.png',
                   height: 240,
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 Text(
                   'E-Commerce App',
                   style: GoogleFonts.poppins(
@@ -59,9 +54,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
-          SizedBox(
-            height: 78,
-          ),
+          const SizedBox(height: 78),
           Text(
             'Username',
             style: GoogleFonts.poppins(
@@ -70,9 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 fontStyle: FontStyle.normal,
                 color: ColorSource.primaryColor),
           ),
-          SizedBox(
-            height: 9,
-          ),
+          const SizedBox(height: 9),
           TextField(
             controller: _userNameController,
             keyboardType: TextInputType.emailAddress,
@@ -94,9 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(15),
                 )),
           ),
-          SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
           Text(
             'Password',
             style: GoogleFonts.poppins(
@@ -105,9 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 fontStyle: FontStyle.normal,
                 color: ColorSource.primaryColor),
           ),
-          SizedBox(
-            height: 9,
-          ),
+          SizedBox(height: 9),
           TextField(
             controller: _passwordController,
             obscureText: _isObscure,
@@ -157,15 +144,13 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.pushNamed(context, HomePage.route);
                     _showMyDialog(ctx);
                   });
-                  return SizedBox();
+                  return const SizedBox();
                 }
                 return buildCustomButton(login);
               },
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
           Center(
             child: GestureDetector(
               onTap: () {

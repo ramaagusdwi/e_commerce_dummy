@@ -2,12 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/brand_controller_query.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/favorite_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
-import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/brand.dart';
-import 'package:test_mobile_apps_dev/models/favorite.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 
@@ -81,19 +78,12 @@ class ProductProvider extends ChangeNotifier {
     var brandController = BrandCtr(dbClient: database);
     brandController.insertBanyakBrand(listBrand);
 
-    //cek list brand dari db
-    List<Brand> localListBrand = await brandController.getBrand();
-    // log("cekInsertedBrandOnLocalDb: $localListBrand");
 
     var produkController = ProdukCtr(dbClient: database);
 
     //insert produk to db
     for (int i = 0; i <= listProduk.length - 1; i++) {
       produkController.insertBanyakProduk(listProduk);
-
-      //cek list produk dari db
-      List<Produk> localListProduk = await produkController.getProduk();
-      // log("cekInsertedProdukOnLocalDb : $localListProduk");
     }
 
     await showListProdukByBrandFromLocalDb(
@@ -316,7 +306,6 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      List<Produk> produk = [];
       database = await DatabaseHelper().database;
       ProdukCtr produkController = new ProdukCtr(dbClient: database);
 

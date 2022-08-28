@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/favorite_controller_query.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
-import 'package:test_mobile_apps_dev/models/brand.dart';
 import 'package:test_mobile_apps_dev/models/favorite.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
 
@@ -58,18 +56,13 @@ class FavoriteProvider extends ChangeNotifier {
       int insert = await con.insertFavorite(favorite);
       if (insert > 0) {
         log("success insert");
-        // var produkCon = ProdukCtr(dbClient: db);
-        // List<Produk> listProduk = await produkCon
-        //     .getProduk(); //show produk berdasarkan favorite dari user
         _resultState = ResultStateFavorite.Success;
       } else {
         log("failed insert");
-        // emit(FailedState('Failed favorites'));
         _resultState = ResultStateFavorite.Failed;
       }
     } catch (err) {
       print("catch setFavorite $err");
-      // emit(FailedState('An unknown error occured'));
     }
   }
 
@@ -82,14 +75,9 @@ class FavoriteProvider extends ChangeNotifier {
       var con = FavoriteCtr(dbClient: db);
       var user = await VPref.getDataUser();
 
-      // log("cekIDUser ${user.idUser}");
 
       favoriteProductList.clear();
       favoriteProductList = await con.getProductFavoriteByUser(user.idUser);
-
-      for (final i in favoriteProductList) {
-        // log('cekFavoriteProduct: $i}');
-      }
 
       _resultState = ResultStateFavorite.Success;
       notifyListeners();

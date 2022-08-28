@@ -30,28 +30,14 @@ class FavoriteView extends StatelessWidget {
 
   Widget body() {
     log(state.favoriteProductList.length.toString(), name: 'favoriteLenght');
-    // for (int i = 0; i < state.favoriteProductList.length; i++) {
-    //   log("favoriteProduct ${state.favoriteProductList[i]}");
-    // }
 
     return state.state == ResultStateFavorite.Loading
-        ? const Center(
-            child: CircularProgressIndicator(
-            color: ColorSource.primaryColor,
-          ))
+        ? _buildLoading()
         : state.state == ResultStateFavorite.Success &&
                 state.favoriteProductList.isEmpty
-            ? Center(
-                child: vText("Belum ada produk favorit!",
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: ColorSource.black))
+            ? EmptyView()
             : state.state == ResultStateFavorite.Failed
-                ? Center(
-                    child: vText(state.message,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 11,
-                        color: ColorSource.black))
+                ? FailedView()
                 : Container(
                     // margin: EdgeInsets.only(top: 16),
                     child: Column(
@@ -68,9 +54,7 @@ class FavoriteView extends StatelessWidget {
                                 color: ColorSource.black),
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         Expanded(
                           child: GridView.count(
                               primary: false,
@@ -90,5 +74,28 @@ class FavoriteView extends StatelessWidget {
                       ],
                     ),
                   );
+  }
+
+  Center FailedView() {
+    return Center(
+        child: vText(state.message,
+            fontWeight: FontWeight.w600,
+            fontSize: 11,
+            color: ColorSource.black));
+  }
+
+  Center EmptyView() {
+    return Center(
+        child: vText("Belum ada produk favorit!",
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+            color: ColorSource.black));
+  }
+
+  Center _buildLoading() {
+    return const Center(
+        child: CircularProgressIndicator(
+      color: ColorSource.primaryColor,
+    ));
   }
 }

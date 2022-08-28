@@ -17,7 +17,6 @@ class CircleWidget extends StatelessWidget {
     return Container(
       height: size,
       width: size,
-      // padding: EdgeInsets.a,
       decoration: BoxDecoration(
         color: colorArgs,
         border: Border.all(
@@ -25,7 +24,6 @@ class CircleWidget extends StatelessWidget {
         ),
         shape: BoxShape.circle,
       ),
-      // child: whiteSmallText('1'),
       child: child,
     );
   }

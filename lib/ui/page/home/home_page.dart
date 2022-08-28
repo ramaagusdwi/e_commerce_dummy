@@ -40,11 +40,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // Future.delayed(Duration.zero, showTutorial);
-    // WidgetsBinding.instance?.addPostFrameCallback((_){
-    //   _layout(_);
-    // });
-    // initTargets();
     WidgetsBinding.instance?.addPostFrameCallback(_layout);
   }
 

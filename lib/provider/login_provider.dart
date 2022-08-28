@@ -2,12 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/login_controller_query.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/register_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
-import 'package:test_mobile_apps_dev/ui/page/home/home_page.dart';
-import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
 
 enum ResultState { Loading, Success, Failed, None }
 

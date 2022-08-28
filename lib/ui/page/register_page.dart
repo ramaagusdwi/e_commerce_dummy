@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:test_mobile_apps_dev/provider/register_provider.dart';
@@ -9,7 +8,7 @@ import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
 import 'package:test_mobile_apps_dev/utils/date_picker.dart';
 import 'package:test_mobile_apps_dev/utils/utils.dart';
-import 'home/home_page.dart';
+
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -29,7 +28,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _noTelpController = TextEditingController();
   final _tanggalController = TextEditingController();
   bool _isValid = false;
-  String _tanggalLahir = "";
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +49,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         'assets/image/store.png',
                         height: 60,
                       ),
-                      SizedBox(
-                        width: 15,
-                      ),
+                      const SizedBox(width: 15),
                       Text(
                         'E-Commerce App',
                         style: GoogleFonts.poppins(
@@ -64,9 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                   Text(
                     'Silahkan daftar dahulu!',
                     style: GoogleFonts.poppins(
@@ -77,53 +71,31 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 48,
-              ),
+              const SizedBox(height: 48),
               buildText('Nama'),
-              const SizedBox(
-                height: 9,
-              ),
+              const SizedBox(height: 9),
               buildTextField(_namaController),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               buildText('Password'),
               const SizedBox(
                 height: 9,
               ),
               buildTextFieldObscure(),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               buildText('Email'),
-              const SizedBox(
-                height: 9,
-              ),
+              const SizedBox(height: 9),
               buildTextField(_emailController),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               buildText('Telepon'),
-              const SizedBox(
-                height: 9,
-              ),
+              const SizedBox(height: 9),
               buildTextField(_noTelpController),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               buildText('Tanggal Lahir'),
-              const SizedBox(
-                height: 9,
-              ),
+              const SizedBox(height: 9),
               buildTextField(_tanggalController,
                   pilihTanggal: true, mystate: setState),
-              const SizedBox(
-                height: 20,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
+              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               Consumer<RegisterProvider>(
                 builder: (ctx, register, __) {
                   if (register.state == ResultState.Loading) {

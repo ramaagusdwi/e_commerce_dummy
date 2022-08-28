@@ -3,13 +3,10 @@ import 'package:provider/src/provider.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
 import 'package:test_mobile_apps_dev/provider/home_provider.dart';
-import 'package:test_mobile_apps_dev/provider/login_provider.dart';
-import 'package:test_mobile_apps_dev/provider/product_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
-import 'package:get/get.dart' as get_package;
 
 class AccountView extends StatelessWidget {
   const AccountView({Key? key}) : super(key: key);

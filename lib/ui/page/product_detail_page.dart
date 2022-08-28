@@ -78,12 +78,8 @@ class ProductDetailPage extends StatelessWidget {
                   "${args.nama}",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                const SizedBox(
-                  height: 4,
-                ),
-                SizedBox(
-                  height: 32,
-                ),
+                const SizedBox(height: 4),
+                const SizedBox(height: 32),
                 Text(
                   "${args.namaBrand}",
                   overflow: TextOverflow.visible,
@@ -92,17 +88,13 @@ class ProductDetailPage extends StatelessWidget {
                       fontSize: 20,
                       color: ColorSource.textGrey2),
                 ),
-                SizedBox(
-                  height: 32,
-                ),
+                const SizedBox(height: 32),
                 vText(args.harga.toString(),
                     money: true,
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
                     color: ColorSource.yellow),
-                SizedBox(
-                  height: 32,
-                ),
+                const SizedBox(height: 32),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -193,7 +185,6 @@ class ProductDetailPage extends StatelessWidget {
     return Container(
       height: size,
       width: size,
-      // padding: EdgeInsets.a,
       decoration: BoxDecoration(
         color: colorArgs,
         border: Border.all(
@@ -201,7 +192,6 @@ class ProductDetailPage extends StatelessWidget {
         ),
         shape: BoxShape.circle,
       ),
-      // child: whiteSmallText('1'),
       child: child,
     );
   }
