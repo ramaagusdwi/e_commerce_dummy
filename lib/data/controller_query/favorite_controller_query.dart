@@ -65,8 +65,8 @@ class FavoriteCtr {
       ON produk.id_produk = favorite.id_produk
       WHERE favorite.id_user=$idUser;  
       ''');
-    print("produkFavorite size!: ${labels.length}");
-    labels.forEach((row) => print("favoritedProduct! " + row.toString()));
+    log("produkFavorite size!: ${labels.length}");
+    labels.forEach((row) => log("favoritedProduct! " + row.toString()));
 
     // Convert the List<Map<String, dynamic> into a List<Type>.
     return labels.isNotEmpty
@@ -106,7 +106,7 @@ class FavoriteCtr {
       ON produk.id_produk = favorite.id_produk
       WHERE favorite.id_user=$idUser AND favorite.id_produk=$idProduk;  
       ''');
-    print("getOneFavoriteProduk, result QUERY $result");
+    log("getOneFavoriteProduk, result QUERY $result");
     result.forEach((row) => print(row));
     if (result.length > 0) {
       return Produk.fromMapQuery(result.first);
