@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:sqflite/sqflite.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
-import 'package:test_mobile_apps_dev/models/user.dart';
 
 import '../database_helper.dart';
 

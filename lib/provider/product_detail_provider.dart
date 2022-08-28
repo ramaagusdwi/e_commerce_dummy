@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:test_mobile_apps_dev/data/controller_query/favorite_controller_query.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/produk_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/produk.dart';
