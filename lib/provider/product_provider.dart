@@ -271,7 +271,7 @@ class ProductProvider extends ChangeNotifier {
 
   Future<void> setIndicatorColorFavorite(int idProduk, int favorite) async {
     log("cek setFavoriteProduk");
-    print("cekidProduk ${idProduk}");
+    log("cekidProduk ${idProduk}");
 
     _resultState = ResultState.Loading;
     notifyListeners();
@@ -285,7 +285,6 @@ class ProductProvider extends ChangeNotifier {
           favorite: favorite);
       if (updated > 0) {
         log("update favorite ok!");
-        // List<Produk> listPeople = await dbProdukController.getProduk();
         _resultState = ResultState.Success;
         notifyListeners();
       } else {
@@ -294,7 +293,7 @@ class ProductProvider extends ChangeNotifier {
         notifyListeners();
       }
     } catch (err) {
-      print("catch $err");
+      log(err.toString(), name: 'catch_SetColorIndicator');
       _resultState = ResultState.Failed;
       notifyListeners();
     }
