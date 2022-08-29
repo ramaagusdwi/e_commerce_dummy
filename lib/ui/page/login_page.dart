@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 fontStyle: FontStyle.normal,
                 color: ColorSource.primaryColor),
           ),
-          SizedBox(height: 9),
+          const SizedBox(height: 9),
           TextField(
             controller: _passwordController,
             obscureText: _isObscure,
@@ -123,9 +123,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          SizedBox(
-            height: 30,
-          ),
+         const  SizedBox(height: 30),
           ChangeNotifierProvider(
             create: (_) => LoginProvider(context), //buat objek baru
             child: Consumer<LoginProvider>(
@@ -155,7 +153,6 @@ class _LoginPageState extends State<LoginPage> {
             child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, RegisterPage.route);
-                // Navigator.pushReplacementNamed(context, HomePage.route);
               },
               child: Text(
                 'Belum punya akun?',
