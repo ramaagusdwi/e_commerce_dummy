@@ -13,18 +13,16 @@ class FavoriteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => FavoriteProvider(context),
-      child: Consumer(
-        builder: (BuildContext context, FavoriteProvider state, Widget? child) {
-          print("rebuild favoriteModel!");
-          this.state = state;
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: body(),
-          );
-        },
-      ),
+    return Consumer(
+      builder: (BuildContext context, FavoriteProvider state, Widget? child) {
+        log("rebuild favoriteModel!");
+        log(state.state.name, name: 'cekStateFavorite');
+        this.state = state;
+        return Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: body(),
+        );
+      },
     );
   }
 
