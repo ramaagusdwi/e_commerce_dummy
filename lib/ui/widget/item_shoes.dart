@@ -202,10 +202,8 @@ class ItemShoesCard extends StatelessWidget {
         },
         child: Icon(Icons.favorite,
             size: size,
-            color: produk.favorite != null
-                ? produk.favorite == 1 //cek
-                    ? Colors.pink
-                    : Colors.grey
+            color: produk.favorite == 1 //cek
+                ? Colors.pink
                 : Colors.grey));
   }
 
