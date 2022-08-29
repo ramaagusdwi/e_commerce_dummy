@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/provider/home_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/account_view.dart';
 import 'package:test_mobile_apps_dev/ui/page/home/product_view.dart';
+import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
 import 'package:test_mobile_apps_dev/ui/widget/message_ballon.dart';
 import 'package:test_mobile_apps_dev/utils/extensions.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -40,7 +42,18 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback(_layout);
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _checkLogin(_layout);
+    });
+  }
+
+  Future<void> _checkLogin(Function layout) async {
+    var isLogin = await VPref.isLogin();
+    if (isLogin == null) {
+      Navigator.pushReplacementNamed(context, LoginPage.route);
+    } else {
+      layout();
+    }
   }
 
   void _layout(_) {
