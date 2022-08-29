@@ -82,7 +82,7 @@ class FavoriteProvider extends ChangeNotifier {
       _resultState = ResultStateFavorite.Success;
       notifyListeners();
     } catch (err) {
-      // print("catch showFavoriteProduk $err");
+      log("catch showFavoriteProduk $err");
       _resultState = ResultStateFavorite.Failed;
       _message = err.toString();
       notifyListeners();
@@ -90,7 +90,7 @@ class FavoriteProvider extends ChangeNotifier {
   }
 
   Future<void> removeFavorite(Produk produk) async {
-    print("removeFavorite!");
+    log("removeFavorite!");
     _resultState = ResultStateFavorite.Loading;
     notifyListeners();
 
@@ -111,7 +111,6 @@ class FavoriteProvider extends ChangeNotifier {
         _resultState = ResultStateFavorite.Failed;
       }
       notifyListeners();
-
     } catch (err) {
       print("catch removeFavorite $err");
       _resultState = ResultStateFavorite.Failed;
