@@ -46,7 +46,7 @@ class LoginProvider extends ChangeNotifier {
         log("cekUserToMap $userMap");
 
         VPref.saveUser(userMap); //save info user to shared preferences
-        // VPref.saveIdUser(idUser); //save id user to shared preferences
+        VPref.setLogin('1'); //set sudah login from shared preferences
 
         _resultState = ResultState.Success;
         notifyListeners();
