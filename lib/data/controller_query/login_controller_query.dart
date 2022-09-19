@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:sqflite/sqflite.dart';
-import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
 
 class LoginCtr {
@@ -7,11 +8,12 @@ class LoginCtr {
 
   LoginCtr({required this.dbClient});
 
-  Future<User?> getLogin(String user, String password) async {
+  Future<Map<dynamic, dynamic>?> getLogin(String user, String password) async {
     List<Map> result = await dbClient.rawQuery(
         'SELECT * FROM user WHERE nama_user=? and password=?',
         ['$user', '$password']);
 
+    // log("cek UserFound $result");
     //print each user
     result.forEach((row) => print(row));
 
@@ -19,8 +21,11 @@ class LoginCtr {
 
     if (result.length > 0) {
       print("user ada");
-      VPref.saveUser(result.first);
-      return new User.fromMap(result.first);
+      log("cekuser ${result.first}");
+
+      // VPref.saveUser(result.first);
+      // return new User.fromMap(result.first);
+      return result.first;
     }
     print("user tidak ada");
     return null;

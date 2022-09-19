@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
-import 'package:test_mobile_apps_dev/provider/login_model.dart';
+import 'package:test_mobile_apps_dev/provider/home_provider.dart';
 import 'package:test_mobile_apps_dev/resources/colors.dart';
 import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
 import 'package:test_mobile_apps_dev/ui/widget/custom_button.dart';
 import 'package:test_mobile_apps_dev/ui/widget/v_text.dart';
-import 'package:get/get.dart' as get_package;
 
 class AccountView extends StatelessWidget {
   const AccountView({Key? key}) : super(key: key);
@@ -116,16 +116,16 @@ class AccountView extends StatelessWidget {
     return CustomButton(
       "Logout",
       heightButton: 50,
-      paddingHorizontal: 30,
+      outerPaddingHorizontal: 30,
       callback: () async {
         await VPref.clearLoginPreference();
-
-        // get_package.Get.offAll(LoginPage());
-        // Navigator.of(context).popUntil(ModalRoute.withName(LoginPage.route));
+        context.read<HomeProvider>().selectedIndex(
+            0); //modify the state home page -> set index tab to 0  (default is left)
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
             ModalRoute.withName('/'));
+        // get_package.Get.offAll(LoginPage());
       },
     );
   }

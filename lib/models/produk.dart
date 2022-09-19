@@ -5,7 +5,8 @@ class Produk {
   late int idBrand;
   late String warnaHex;
   late String pathImage;
-  int? favorite = 0;
+  String namaBrand = "brand";
+  int favorite = 0;
 
 //<editor-fold desc="Data Methods">
 
@@ -16,6 +17,7 @@ class Produk {
     required this.warnaHex,
     required this.idBrand,
     required this.pathImage,
+    this.namaBrand = "brand",
     this.favorite = 0,
   });
 
@@ -45,7 +47,7 @@ class Produk {
 
   Map<String, dynamic> toMap() {
     return {
-      'nama_produk': this.nama,
+      'nama': this.nama,
       'harga': this.harga,
       'id_brand': this.idBrand,
       'path_terakhir': this.pathImage,
@@ -54,5 +56,14 @@ class Produk {
     };
   }
 
+  Produk.fromMapQuery(Map<dynamic, dynamic> json) {
+    idProduk = json['id_produk'];
+    nama = json['nama'];
+    harga = json['harga'];
+    idBrand = json['id_brand'];
+    pathImage = json['path_terakhir'];
+    warnaHex = json['warna'];
+    favorite = json['favorite'];
+  }
 //</editor-fold>
 }

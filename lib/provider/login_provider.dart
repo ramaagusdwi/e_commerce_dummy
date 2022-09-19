@@ -1,17 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/login_ctr.dart';
-import 'package:test_mobile_apps_dev/data/controller_query/register_ctr.dart';
+import 'package:test_mobile_apps_dev/data/controller_query/login_controller_query.dart';
 import 'package:test_mobile_apps_dev/data/database_helper.dart';
 import 'package:test_mobile_apps_dev/data/shared_pref/v_pref.dart';
 import 'package:test_mobile_apps_dev/models/user.dart';
-import 'package:test_mobile_apps_dev/ui/page/home/home_page.dart';
-import 'package:test_mobile_apps_dev/ui/page/login_page.dart';
 
 enum ResultState { Loading, Success, Failed, None }
 
-class LoginModel extends ChangeNotifier {
+class LoginProvider extends ChangeNotifier {
   BuildContext context;
 
   late ResultState _resultState;
@@ -22,7 +19,7 @@ class LoginModel extends ChangeNotifier {
 
   String get message => _message;
 
-  LoginModel(this.context) {
+  LoginProvider(this.context) {
     _resultState = ResultState.None;
     notifyListeners();
   }
@@ -30,7 +27,8 @@ class LoginModel extends ChangeNotifier {
   Future<String> onLogin(String username, String password) async {
     late var database;
     try {
-      database = await DatabaseHelper().database;
+      database = await DatabaseHelper().database; //tunggu proses init database
+      print("database $database");
     } catch (err) {
       log("cek catch db $err");
     }
@@ -38,23 +36,29 @@ class LoginModel extends ChangeNotifier {
       _resultState = ResultState.Loading;
       notifyListeners();
       var loginController = LoginCtr(dbClient: database);
-      User? user = await loginController.getLogin(username, password);
+      Map<dynamic, dynamic>? user =
+          await loginController.getLogin(username, password);
       if (user != null) {
-        print("cek user ditemukan");
-        Map<String, dynamic> userMap = user.toMap();
-        VPref.saveUser(userMap);
+        print("cek iduser ${user['id_user']!}");
+
+        var userObject = User.fromMap(user);
+        Map<String, dynamic> userMap = userObject.toMap();
+        log("cekUserToMap $userMap");
+
+        VPref.saveUser(userMap); //save info user to shared preferences
+        VPref.setLogin('1'); //set sudah login from shared preferences
+
         _resultState = ResultState.Success;
         notifyListeners();
-        return _message = "Cannot find the account!";
+        return _message = "Akun ditemukan!";
         //show dialog welcome alert
       } else {
-        print("cek user tidak ditemukan");
         _resultState = ResultState.Failed;
         notifyListeners();
-        return _message = "Cannot find the account!";
+        return _message = "Tidak menemukan akun!";
       }
     } catch (err) {
-      log("cek catch $err");
+      log("Login-Error: $err");
       _resultState = ResultState.Failed;
       notifyListeners();
       return _message = "Error tidak diketahui!";

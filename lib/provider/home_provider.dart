@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-class HomeModel extends ChangeNotifier {
+class HomeProvider extends ChangeNotifier {
   int _index = 0;
 
   get index => _index;
 
-  HomeModel(){
+  HomeProvider(){
     _index = 0; //set default view
     notifyListeners();
   }
