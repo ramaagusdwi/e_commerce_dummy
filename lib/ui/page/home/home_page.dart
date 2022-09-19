@@ -42,12 +42,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    log('initState');
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
       _checkLogin(_layout);
     });
   }
 
-  Future<void> _checkLogin(Function layout) async {
+  Future<void> _checkLogin(Function() layout) async {
     var isLogin = await VPref.isLogin();
     if (isLogin == null) {
       Navigator.pushReplacementNamed(context, LoginPage.route);
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _layout(_) {
+  void _layout() {
     initTargets();
     Future.delayed(const Duration(milliseconds: 100));
     showTutorial();
