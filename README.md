@@ -1,6 +1,7 @@
 # test_mobile_apps_dev
 
 A new Flutter project for  Shoesmart Mobile Apps Dev test.
+Using Flutter SDK version 2.0.5
 
 ## Getting Started
 
