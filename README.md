@@ -2,7 +2,8 @@
 
 A new Flutter project for  Shoesmart Mobile Apps Dev test.<br />  
 
-Using Flutter SDK version 2.0.5
+Using Flutter SDK version 2.8.0 <br />  
+Using Dart SDK version 2.15.0
 
 ## Getting Started
 
