@@ -1,4 +1,4 @@
-# test_mobile_apps_dev
+#Ecommerce Dummy
 
 A new Flutter project for  Shoesmart Mobile Apps Dev test.<br />  
 
